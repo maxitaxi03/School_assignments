@@ -18,7 +18,7 @@ public class CarTest {
         int speed = scan.nextInt();
 
         myCar.accelerate(speed);
-        String nextLine = scan.nextLine();
+        scan.nextLine();
         
         System.out.println("Do you wish to stop? Indicate with yes or no.");
         String response = scan.nextLine();
