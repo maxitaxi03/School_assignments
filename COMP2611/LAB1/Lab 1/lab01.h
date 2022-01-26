@@ -156,7 +156,7 @@ int power(int num1, int num2) { // 2, 3 -> 2, 2 -> 2, 1 -> 2, 0 and break recurs
     // 2^1 = 2 * 1
     // 2^2 = 2 * 2 * 1
     // 2^3 = 2 * 2 * 2 * 1
-    // recursion function looks like: 2 * (2 * (2 * 1))
+    // recursion function looks like: (2 * (2 * (2 * 1)))
 }
 
 
