@@ -136,7 +136,7 @@ int product(int num1, int num2) { // 2, 3 -> 2, 2 -> 2, 1
     if (num2 == 1) {
         return num1;
     }
-    return num1 + product(num1, num2 - 1); // 2 + (2 + (2)) = 6 which is right
+    return num1 + product(num1, num2 - 1);
 }
 // end of production recursive function
 
@@ -145,11 +145,18 @@ int product(int num1, int num2) { // 2, 3 -> 2, 2 -> 2, 1
  and returns the result of raising the first number
  to the power of the second
  */
-int power(int num1, int num2) { // 2, 3 -> 2, 2 ->
+int power(int num1, int num2) { // 2, 3 -> 2, 2 -> 2, 1 -> 2, 0 and break recursion
     if (num2 == 0) {
         return 1;
     }
-    return num1 * power(num1, num2 - 1); // 2 * (2 * (1))
+    return num1 * power(num1, num2 - 1);
+    // 2^3 = 2 * 2^2
+    // 2^2 = 2 * 2^1
+    // 2^1 = 2 * 2^0, SO RETURN 1
+    // 2^1 = 2 * 1
+    // 2^2 = 2 * 2 * 1
+    // 2^3 = 2 * 2 * 2 * 1
+    // recursion function looks like: 2 * (2 * (2 * 1))
 }
 
 
