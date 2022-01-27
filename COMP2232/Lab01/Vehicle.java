@@ -36,7 +36,7 @@ public class Vehicle {
 
     public void accelerate(int speed) {
         if (this.currSpeed < speed) {
-            this.currSpeed += 5;
+            this.currSpeed++;
         }
         if (this.currSpeed <= speed && this.currSpeed % 5 == 0) {
             System.out.println("The current speed of the car after accelerating is: " + this.currSpeed);
@@ -45,7 +45,7 @@ public class Vehicle {
 
     public void brake() {
         while (this.currSpeed > 0) {
-            this.currSpeed -= 5;
+            this.currSpeed--;
             if (this.currSpeed % 5 == 0)
                 System.out.println("The current speed of the car after slowing down is: " + this.currSpeed);
         }
