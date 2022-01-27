@@ -129,7 +129,7 @@ int* memoryAddressReturned(int num) {
  and returns the product of the 2 numbers
  throught repeated additions
  */
-int product(int num1, int num2) { // 2, 3 -> 2, 2 -> 2, 1
+int product(int num1, int num2) { // 2, 3 -> 2, 2 -> 2, 1, 2 -> 0 AND BREAK RECURSION
     if (num1 == 0 || num2 == 0) {
         return 0;
     }
@@ -145,10 +145,11 @@ int product(int num1, int num2) { // 2, 3 -> 2, 2 -> 2, 1
  and returns the result of raising the first number
  to the power of the second
  */
-int power(int num1, int num2) { // 2, 3 -> 2, 2 -> 2, 1 -> 2, 0 and break recursion
-    if (num2 == 0) {
-        return 1;
-    }
+int power(int num1, int num2) { // 2, 3 -> 2, 2 -> 2, 1 -> 2, 0 AND BREAK RECURSION
+    if (num2 == 0) { return 1; }
+    if (num2 == 1) { return num1; }
+    if (num1 == 0) { return 0; }
+    if (num1 == 1) { return 1; }
     return num1 * power(num1, num2 - 1);
     // 2^3 = 2 * 2^2
     // 2^2 = 2 * 2^1

@@ -43,8 +43,7 @@ int main(int argc, const char * argv[]) {
     
     // memoryAddressReturned(int) has a bug
     int num = 5;
-    int* num_ptr = memoryAddressReturned(num);
-    cout << "Address is: " << *num_ptr << endl;
+    cout << "Address is: " << memoryAddressReturned(num) << endl;
     
     // product(int, int) test complete
     cout << "The product is: " << product(2, 3) << endl;
