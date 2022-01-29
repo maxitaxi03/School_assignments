@@ -25,12 +25,12 @@ public class CarTest {
         
         while (response.equalsIgnoreCase(no) || response.equalsIgnoreCase(yes)) {
             if (response.equalsIgnoreCase(no)) {
-                myCar.accelerate(speed);
+                myCar.accelerate(speed, 3);
                 System.out.println("Do you wish to stop now?");
                 response = scan.nextLine();
             }
             else {
-                myCar.brake();
+                myCar.brake(15);
                 break;
             }   
         }
