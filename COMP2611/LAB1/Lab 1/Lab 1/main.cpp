@@ -41,7 +41,7 @@ int main(int argc, const char * argv[]) {
     bool isEven = isValueEven(*number_ptr);
     cout << "Is value even? " << isEven << endl;
     
-    // memoryAddressReturned(int) has a bug
+    // memoryAddressReturned(int) is fixed
     int num = 5;
     cout << "Address is: " << memoryAddressReturned(num) << endl;
     
