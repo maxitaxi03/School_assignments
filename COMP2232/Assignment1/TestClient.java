@@ -43,12 +43,19 @@ public class TestClient {
         zoo.addAnimal(animal3);
         zoo.addAnimal(animal4);
 
-        zoo.showAnimal();
+        zoo.showAnimals();
         System.out.println("--------------------------------------------------");
         Animal animal5 = zoo.getAnimal(4);
         zoo.addAnimal(animal5);
-        zoo.showAnimal();
+        zoo.showAnimals();
         System.out.println("--------------------------------------------------");
-        //end of zoo.java testing
+        // end of zoo.java testing
+
+        // start of zookeeper.java testing
+        System.out.println("--------------------------------------------------");
+        System.out.println("Size of the cage: " + zoo.getCage().size());
+        ZooKeeper zooKeeper = new ZooKeeper();
+        zooKeeper.feedAnimals(zoo);
+        
     }
 }

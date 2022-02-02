@@ -18,10 +18,32 @@ public class Zoo {
     /**
      * Displays the animals' details that are in the array list
      */
-    public void showAnimal() {
+    public void showAnimals() {
         for (Animal animal: cage) {
             System.out.println(animal.getName() + " " + animal.getSpecies() + " " + animal.getAge()
             + " " + animal.getHungerStatus() + " " + animal.getHealthStatus());
+        }
+    }
+    /**
+     * Displays only animals that are alive
+     */
+    public void showAliveAnimals() {
+        for (Animal animal: cage) {
+            if (animal.aliveStatus() == true) {
+                System.out.println(animal.getName() + " " + animal.getSpecies() + " " + animal.getAge()
+                + " " + animal.getHungerStatus() + " " + animal.getHealthStatus());
+            }
+        }
+    }
+    /**
+     * Diplays only animals that are dead
+     */
+    public void showDeadAnimals() {
+        for (Animal animal: cage) {
+            if (animal.aliveStatus() == false) {
+                System.out.println(animal.getName() + " " + animal.getSpecies() + " " + animal.getAge()
+                + " " + animal.getHungerStatus() + " " + animal.getHealthStatus());
+            }
         }
     }
     /**
@@ -43,4 +65,7 @@ public class Zoo {
     public ArrayList<Animal> getCage() {
         return cage;
     }
+
+    // possible feature to implement is to display alive animals
+    // and to dsiplay all dead animals
 }

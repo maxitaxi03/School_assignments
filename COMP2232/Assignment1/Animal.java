@@ -12,6 +12,7 @@ public class Animal {
 
     private String species, name;
     private int age, hungerStatus, healthStatus;
+    private boolean isAliveStatus;
 
     /**
      * Animal constructor initialises the datamembers
@@ -27,6 +28,7 @@ public class Animal {
                 .floor(Math.random() * (this.maxHungerStatus - this.minHungerStatus - 1) + this.minHungerStatus);
         this.healthStatus = (int) Math
                 .floor(Math.random() * (this.maxHealthStatus - this.minHealthStatus - 1) + this.minHealthStatus);
+        this.isAliveStatus = true;
     }
 
     /**
@@ -68,6 +70,20 @@ public class Animal {
     public int getHealthStatus() {
         return healthStatus;
     }
+
+    /**
+     * 
+     * @return the status of the animal when dead
+     */
+    public boolean aliveStatus() {
+        return isAliveStatus;
+    }
+
+    /**
+     * 
+     * @return the status of the animal when alive
+     */
+    
 
     /**
      * Registers the specied entered to the animal
@@ -114,6 +130,10 @@ public class Animal {
         this.healthStatus = healthStatus;
     }
 
+    public void setAliveStatus(boolean aliveStatus) {
+        this.isAliveStatus = aliveStatus;
+    }
+
     /**
      * Allows the animal to eat a set amount of food
      * while food is within the bounds (1, 5)
@@ -129,18 +149,21 @@ public class Animal {
         if (food <= minHungerStatus || food > maxHungerStatus) {
             throw new IllegalArgumentException("The animal can't eat food that doesn't exist!");
         }
-        if (this.hungerStatus == maxHungerStatus) {
-            return;
-        }
+
+        this.hungerStatus += food;
+
+        // if (this.hungerStatus == maxHungerStatus) {
+        //     return;
+        // }
         // 3 + 5 > 5
         // 3 + 2 = 5
-        if (this.hungerStatus + food > maxHungerStatus) {
-            int difference = this.maxHungerStatus - this.hungerStatus;
-            this.hungerStatus += difference;
-        }  
-        else {
-            this.hungerStatus += food;
-        }      
+        // if (this.hungerStatus + food > maxHungerStatus) {
+        //     int difference = this.maxHungerStatus - this.hungerStatus;
+        //     this.hungerStatus += difference;
+        // }  
+        // else {
+        //     this.hungerStatus += food;
+        // }      
     }
     /**
      * Allows the animal to take a set amount of medicine
@@ -157,16 +180,17 @@ public class Animal {
         if (medicine <= this.minHealthStatus || medicine > this.maxHealthStatus) {
             throw new IllegalArgumentException("The animal can't take medicine that doesn't exist");
         }
-        if (this.healthStatus == this.maxHealthStatus) {
-            return;
-        }
-        if (this.healthStatus + medicine > this.maxHealthStatus) {
-            int difference = this.maxHealthStatus - this.healthStatus;
-            this.healthStatus += difference;
-        }
-        else {
-            this.healthStatus += medicine;
-        }
+        this.healthStatus += medicine;
+        // if (this.healthStatus == this.maxHealthStatus) {
+        //     return;
+        // }
+        // if (this.healthStatus + medicine > this.maxHealthStatus) {
+        //     int difference = this.maxHealthStatus - this.healthStatus;
+        //     this.healthStatus += difference;
+        // }
+        // else {
+        //     this.healthStatus += medicine;
+        // }
     }
     /**
      * Displays a message to the user
