@@ -53,6 +53,7 @@ public class ZooManager {
 
                     for (int i = 0; i < numberOfAnimals; i++) {
                         Animal animal = new Animal();
+                        System.out.println("-----------------------------------------");
                         System.out.print("Please enter the name of the animal: ");
                         String name = scan.nextLine();
                         
@@ -65,7 +66,7 @@ public class ZooManager {
 
                         System.out.print("Please enter the age of the animal: ");
                         int age = scan.nextInt();
-
+                        System.out.println("-----------------------------------------");
                         System.out.println("\n");
                         changeLine = scan.nextLine();
 
@@ -75,6 +76,7 @@ public class ZooManager {
 
                         zoo.addAnimal(animal);
                     }
+                    
 
                     System.out.println("Would you like to restart? If so, indicate by entering 'start'. If not, indicate by saying 'finished.'");
                     System.out.print("Type here please -> ");
@@ -83,8 +85,11 @@ public class ZooManager {
                 }
                 else if (choice == 2) {
                     String changeLine = scan.nextLine();
+                    if (zoo.getCage().size() == 0) {
+                        System.out.println("There is no animal in the zoo.");
+                    }
                     zoo.showAnimals();
-                    System.out.println("Would you like to restart? If so, indicate by entering 'start'. If not, indicate by saying 'finished.'");
+                    System.out.println("Would you like to 2 restart? If so, indicate by entering 'start'. If not, indicate by saying 'finished.'");
                     System.out.print("Type here please -> ");
                     decision = scan.nextLine();
                     System.out.println("\n");
@@ -92,6 +97,10 @@ public class ZooManager {
                 }
                 else if (choice == 3) {
                     String changeLine = scan.nextLine();
+                    if (zoo.getCage().size() == 0) {
+                        System.out.println("There is no animal in the zoo.");
+                        
+                    }
                     zooKeeper.feedAnimals(zoo);
                     System.out.println("Would you like to restart? If so, indicate by entering 'start'. If not, indicate by saying 'finished.'");
                     System.out.print("Type here please -> ");
@@ -100,6 +109,10 @@ public class ZooManager {
                 }
                 else if (choice == 4) {
                     String changeLine = scan.nextLine();
+                    if (zoo.getCage().size() == 0) {
+                        System.out.println("There is no animal in the zoo.");
+                    }
+
                     zooKeeper.healAnimals(zoo);
                     System.out.println("Would you like to restart? If so, indicate by entering 'start'. If not, indicate by saying 'finished.'");
                     System.out.print("Type here please -> ");
@@ -108,6 +121,10 @@ public class ZooManager {
                 }
                 else if (choice == 5) {
                     String changeLine = scan.nextLine();
+                    if (zoo.getCage().size() == 0) {
+                        System.out.println("There is no animal in the zoo.");
+                    }
+
                     zoo.showDeadAnimals();
                     System.out.println("Would you like to restart? If so, indicate by entering 'start'. If not, indicate by saying 'finished.'");
                     System.out.print("Type here please -> ");
@@ -116,6 +133,10 @@ public class ZooManager {
                 }
                 else if (choice == 6) {
                     String changeLine = scan.nextLine();
+                    if (zoo.getCage().size() == 0) {
+                        System.out.println("There is no animal in the zoo.");
+                    }
+                    
                     zoo.showAliveAnimals();
                     System.out.println("Would you like to restart? If so, indicate by entering 'start'. If not, indicate by saying 'finished.'");
                     System.out.print("Type here please -> ");
@@ -129,7 +150,7 @@ public class ZooManager {
             }
             else {
                 System.out.println("Thank you for taking the time to check on the animals. Have a good day!");
-                // break;
+                break;
             }
         }
     }
