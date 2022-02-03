@@ -178,7 +178,7 @@ public class Animal {
      */
     public void takeMedicine(int medicine) {
         if (medicine <= this.minHealthStatus || medicine > this.maxHealthStatus) {
-            throw new IllegalArgumentException("The animal can't take medicine that doesn't exist");
+            throw new IllegalArgumentException("The animal can't take medicine that doesn't exist!");
         }
         this.healthStatus += medicine;
         // if (this.healthStatus == this.maxHealthStatus) {
