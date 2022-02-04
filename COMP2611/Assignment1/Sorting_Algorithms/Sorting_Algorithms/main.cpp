@@ -12,7 +12,7 @@ using namespace std;
 int main(int argc, const char * argv[]) {
     
     // need to create more test cases for selection sort
-    int arr[] = {5, 3, 6, 4, 7, 9, 11, 2};
+    int arr[] = {5, 3, 6, 4, 7, 9, 11, 2, 1};
     int length = sizeof(arr) / sizeof(arr[0]);
     
 //    selectionSort(arr, length);
@@ -27,7 +27,17 @@ int main(int argc, const char * argv[]) {
 //        cout << arr[i] << " ";
 //    }
     
-    quickSort(arr, length);
+//    quickSort(arr, length);
+//    for (int i = 0; i < length; i++) {
+//        cout << arr[i] << " ";
+//    }
+//    mergeSort(arr, length);
+//
+//    for (int i = 0; i < length - 1; i++) {
+//        cout << arr[i] << " ";
+//    }
+    bucketSort(arr, length);
+    
     for (int i = 0; i < length; i++) {
         cout << arr[i] << " ";
     }
