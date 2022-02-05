@@ -166,6 +166,7 @@ public class Animal {
         if (medicine <= this.minHealthStatus || medicine > this.maxHealthStatus) {
             throw new IllegalArgumentException("Shouldn't give the animal too much medication nor give the animal nothing!");
         }
+        this.healthStatus += medicine;
         
     }
     /**

@@ -1,13 +1,13 @@
 import java.util.Scanner;
 // import java.lang.IllegalArgumentException;
 public class ZooKeeper {
-    private String name;
+    private String zooKeeperName;
 
     /**
      * Initalises attribute to the default value
      */
     public ZooKeeper() {
-        name = "";
+        this.zooKeeperName = "";
     }
 
     /**
@@ -85,7 +85,7 @@ public class ZooKeeper {
      * @return the name of the ZooKeeper
      */
     public String getName() {
-        return name;
+        return this.zooKeeperName;
     }
     /**
      * Registers the name entered to the zookeeper
@@ -93,7 +93,7 @@ public class ZooKeeper {
      * @param name determines the name of the zookeeper
      */
     public void setName(String name) {
-        this.name = name;
+        this.zooKeeperName = name;
     }
 
 }

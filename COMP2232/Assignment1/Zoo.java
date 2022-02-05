@@ -21,9 +21,9 @@ public class Zoo {
     public void showAnimals() {
         for (Animal animal: cage) {
            System.out.println("-----------------------------------------");
-           System.out.println("Animal Name: " + animal.getName());
-           System.out.println("Animal Age: " + animal.getAge());
-           System.out.println("Animal Species: " + animal.getSpecies());
+           System.out.println("Animal Name: %30s" + animal.getName());
+           System.out.println("Animal Age: %29s" + animal.getAge());
+           System.out.println("Animal Species: %28s" + animal.getSpecies());
            System.out.println("-----------------------------------------");
         }
     }
