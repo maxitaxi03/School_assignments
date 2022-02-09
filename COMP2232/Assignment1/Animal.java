@@ -4,11 +4,12 @@
  * @author      400008300
  */
 import java.lang.IllegalArgumentException;
+import java.util.Random;
 // animal class seems to work as expected: Tuesday 1st Feb, 2022
 public class Animal {
-
-    final private int minHungerStatus = 0, maxHungerStatus = 5;
-    final private int minHealthStatus = 0, maxHealthStatus = 10;
+    private Random gen = new Random();
+    final public int minHungerStatus = 0, maxHungerStatus = 5;
+    final public int minHealthStatus = 0, maxHealthStatus = 10;
 
     private String species, name;
     private int age, hungerStatus, healthStatus;
@@ -24,11 +25,10 @@ public class Animal {
         this.species = "";
         this.name = "";
         this.age = 0;
-        this.hungerStatus = (int) Math
-                .floor(Math.random() * (this.maxHungerStatus - this.minHungerStatus - 1) + this.minHungerStatus);
-        this.healthStatus = (int) Math
-                .floor(Math.random() * (this.maxHealthStatus - this.minHealthStatus - 1) + this.minHealthStatus);
+        this.hungerStatus = gen.nextInt(5) + 1;
+        this.healthStatus = gen.nextInt(10) + 1;
         this.isAliveStatus = true;
+        // this.isAliveStatus = false;
     }
 
     /**
@@ -147,23 +147,10 @@ public class Animal {
      */
     public void eatFood(int food) {
         if (food <= minHungerStatus || food > maxHungerStatus) {
-            throw new IllegalArgumentException("The animal can't eat food that doesn't exist!");
+            throw new IllegalArgumentException("You can't overfeed the animal or give the animal nothing to eat.");
         }
-
         this.hungerStatus += food;
-
-        // if (this.hungerStatus == maxHungerStatus) {
-        //     return;
-        // }
-        // 3 + 5 > 5
-        // 3 + 2 = 5
-        // if (this.hungerStatus + food > maxHungerStatus) {
-        //     int difference = this.maxHungerStatus - this.hungerStatus;
-        //     this.hungerStatus += difference;
-        // }  
-        // else {
-        //     this.hungerStatus += food;
-        // }      
+             
     }
     /**
      * Allows the animal to take a set amount of medicine
@@ -178,19 +165,10 @@ public class Animal {
      */
     public void takeMedicine(int medicine) {
         if (medicine <= this.minHealthStatus || medicine > this.maxHealthStatus) {
-            throw new IllegalArgumentException("The animal can't take medicine that doesn't exist!");
+            throw new IllegalArgumentException("Shouldn't give the animal too much medication nor give the animal nothing!");
         }
         this.healthStatus += medicine;
-        // if (this.healthStatus == this.maxHealthStatus) {
-        //     return;
-        // }
-        // if (this.healthStatus + medicine > this.maxHealthStatus) {
-        //     int difference = this.maxHealthStatus - this.healthStatus;
-        //     this.healthStatus += difference;
-        // }
-        // else {
-        //     this.healthStatus += medicine;
-        // }
+        
     }
     /**
      * Displays a message to the user

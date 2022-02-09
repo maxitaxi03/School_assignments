@@ -20,8 +20,13 @@ public class Zoo {
      */
     public void showAnimals() {
         for (Animal animal: cage) {
-            System.out.println(animal.getName() + " " + animal.getSpecies() + " " + animal.getAge()
-            + " " + animal.getHungerStatus() + " " + animal.getHealthStatus());
+           System.out.println("-----------------------------------------");
+           System.out.println("Animal Name: " + animal.getName());
+           System.out.println("Animal Age: " + animal.getAge());
+           System.out.println("Animal Species: " + animal.getSpecies());
+           String isAlive = (animal.aliveStatus() == true) ? "Alive" : "Dead";
+           System.out.println("Animal Status: " + isAlive);
+           System.out.println("-----------------------------------------");
         }
     }
     /**
@@ -30,9 +35,17 @@ public class Zoo {
     public void showAliveAnimals() {
         for (Animal animal: cage) {
             if (animal.aliveStatus() == true) {
-                System.out.println(animal.getName() + " " + animal.getSpecies() + " " + animal.getAge()
-                + " " + animal.getHungerStatus() + " " + animal.getHealthStatus());
+                System.out.println("-----------------------------------------");
+                System.out.println("Animal Name: " + animal.getName());
+                System.out.println("Animal Age: " + animal.getAge());
+                System.out.println("Animal Species: " + animal.getSpecies());
+                System.out.println("-----------------------------------------");
             }
+            else {
+                System.out.println(animal.getName() + " is dead :( Click option '5' next time!");
+                System.out.println("---------------------------------------------------------");
+            }
+
         }
     }
     /**
@@ -41,10 +54,19 @@ public class Zoo {
     public void showDeadAnimals() {
         for (Animal animal: cage) {
             if (animal.aliveStatus() == false) {
-                System.out.println(animal.getName() + " " + animal.getSpecies() + " " + animal.getAge()
-                + " " + animal.getHungerStatus() + " " + animal.getHealthStatus());
+                System.out.println("-----------------------------------------");
+                System.out.println("Animal Name: " + animal.getName());
+                System.out.println("Animal Age: " + animal.getAge());
+                System.out.println("Animal Species: " + animal.getSpecies());
+                System.out.println("-----------------------------------------");
+            }
+            else {
+                System.out.println(animal.getName() + " is Alive :) Click option 6 next time!");
+                System.out.println("---------------------------------------------------------");
             }
         }
+          
+        
     }
     /**
      * Retrieve the animal from the array list 
@@ -55,17 +77,20 @@ public class Zoo {
      */
     public Animal getAnimal(int position) {
         if (cage.size() == 0) {
-            throw new NoSuchElementException("The list is empty");
+            throw new NoSuchElementException("There are no animals in the zoo!");
         }
         if (position > cage.size()) {
             throw new IllegalArgumentException();
         }
         return cage.get(position - 1);
     }
+    /**
+     * 
+     * @return the arraylist containing all the animals in the zoo
+     */
     public ArrayList<Animal> getCage() {
         return cage;
     }
 
-    // possible feature to implement is to display alive animals
-    // and to dsiplay all dead animals
+    
 }
