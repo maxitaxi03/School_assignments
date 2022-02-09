@@ -87,7 +87,7 @@ public class ZooManager {
                 else if (choice == 2) {
                     String changeLine = scan.nextLine();
                     if (zoo.getCage().size() == 0) {
-                        System.out.println("There is no animal in the zoo.");
+                        System.out.println("There are no animals in the zoo.");
                     }
                     zoo.showAnimals();
                     System.out.println("Would you like to restart? If so, indicate by entering 'start'. If not, indicate by entering 'finished.'");
@@ -99,7 +99,7 @@ public class ZooManager {
                 else if (choice == 3) {
                     String changeLine = scan.nextLine();
                     if (zoo.getCage().size() == 0) {
-                        System.out.println("There is no animal in the zoo.");
+                        System.out.println("There are no animals in the zoo.");
                         
                     }
                     zooKeeper.feedAnimals(zoo);
@@ -111,7 +111,7 @@ public class ZooManager {
                 else if (choice == 4) {
                     String changeLine = scan.nextLine();
                     if (zoo.getCage().size() == 0) {
-                        System.out.println("There is no animal in the zoo.");
+                        System.out.println("There are no animals in the zoo.");
                     }
 
                     zooKeeper.healAnimals(zoo);
@@ -123,7 +123,7 @@ public class ZooManager {
                 else if (choice == 5) {
                     String changeLine = scan.nextLine();
                     if (zoo.getCage().size() == 0) {
-                        System.out.println("There is no animal in the zoo.");
+                        System.out.println("There are no animals in the zoo.");
                     }
 
                     zoo.showDeadAnimals();
@@ -149,11 +149,13 @@ public class ZooManager {
                 }
                     
             }
-            else {
+            else if (decision.equalsIgnoreCase(finished)) {
                 System.out.println("///////////////////////////////////////////////////////////////////////");
-                System.out.println("Thank you for taking the time to check on the animals. Have a good day!");
+                System.out.println("Thank you for taking the time to check on the animals. Have a good day! " + zooKeeperName);
                 break;
             }
+            else 
+                throw new IllegalArgumentException("Only 'start' and 'finished are valid inputs!'");
         }
     }
 }

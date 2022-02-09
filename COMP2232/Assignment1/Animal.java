@@ -28,6 +28,7 @@ public class Animal {
         this.hungerStatus = gen.nextInt(5) + 1;
         this.healthStatus = gen.nextInt(10) + 1;
         this.isAliveStatus = true;
+        // this.isAliveStatus = false;
     }
 
     /**

@@ -21,9 +21,11 @@ public class Zoo {
     public void showAnimals() {
         for (Animal animal: cage) {
            System.out.println("-----------------------------------------");
-           System.out.println("Animal Name: %30s" + animal.getName());
-           System.out.println("Animal Age: %29s" + animal.getAge());
-           System.out.println("Animal Species: %28s" + animal.getSpecies());
+           System.out.println("Animal Name: " + animal.getName());
+           System.out.println("Animal Age: " + animal.getAge());
+           System.out.println("Animal Species: " + animal.getSpecies());
+           String isAlive = (animal.aliveStatus() == true) ? "Alive" : "Dead";
+           System.out.println("Animal Status: " + isAlive);
            System.out.println("-----------------------------------------");
         }
     }
@@ -39,6 +41,11 @@ public class Zoo {
                 System.out.println("Animal Species: " + animal.getSpecies());
                 System.out.println("-----------------------------------------");
             }
+            else {
+                System.out.println(animal.getName() + " is dead :( Click option '5' next time!");
+                System.out.println("---------------------------------------------------------");
+            }
+
         }
     }
     /**
@@ -53,7 +60,13 @@ public class Zoo {
                 System.out.println("Animal Species: " + animal.getSpecies());
                 System.out.println("-----------------------------------------");
             }
+            else {
+                System.out.println(animal.getName() + " is Alive :) Click option 6 next time!");
+                System.out.println("---------------------------------------------------------");
+            }
         }
+          
+        
     }
     /**
      * Retrieve the animal from the array list 
