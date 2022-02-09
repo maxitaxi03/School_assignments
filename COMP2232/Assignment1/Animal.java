@@ -146,7 +146,7 @@ public class Animal {
      * @param food determines how much food the animal eats
      */
     public void eatFood(int food) {
-        if (food <= minHungerStatus || food > maxHungerStatus) {
+        if (food <= minHungerStatus) {
             throw new IllegalArgumentException("You can't overfeed the animal or give the animal nothing to eat.");
         }
         this.hungerStatus += food;

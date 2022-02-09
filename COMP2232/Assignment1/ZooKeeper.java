@@ -30,6 +30,13 @@ public class ZooKeeper {
                 System.out.println("----------------------------------------------------------------");
                 continue;
             }
+
+            if (zoo.getAnimal(i).getHungerStatus() == maxHungerStatus) {
+                System.out.println(zoo.getAnimal(i).getName() + " This animal is already full. Can't feed the animal!");
+                System.out.println("----------------------------------------------------------------");
+                continue;
+            }
+
             System.out.println("Please feed the animal with the correct amount of food otherwise it will die");
             System.out.println("The current animal is: " + zoo.getAnimal(i).getName() + " and the hungerStatus is: " +zoo.getAnimal(i).getHungerStatus() + ".");
             
@@ -40,10 +47,17 @@ public class ZooKeeper {
                 System.out.println("--------------------------------------------------------");
                 continue;
             }
+
+            if (difference < 0) {
+                continue;
+            }
+
             System.out.println("Feed the animal: " + difference);
             System.out.print("Type here please -> ");
             int food = scan.nextInt();
+
             
+            zoo.getAnimal(i).eatFood(food);
             // String newline = scan.nextLine();
 
             if (food > difference) {
@@ -55,12 +69,6 @@ public class ZooKeeper {
             if (food < difference) {
                 System.out.println("You are starving the animal because you gave it less than the required amount!");
                 System.out.println("------------------------------------------------------------------------------");
-                continue;
-            }
-
-            if (zoo.getAnimal(i).getHungerStatus() == maxHungerStatus) {
-                System.out.println("This animal is already full. Can't feed the animal!");
-                System.out.println("----------------------------------------------------------------");
                 continue;
             }
 
@@ -89,7 +97,7 @@ public class ZooKeeper {
 
         for (int i = 1; i <= zoo.getCage().size(); i++) {
             if (zoo.getAnimal(i).aliveStatus() == true) { 
-                System.out.println("Please give each animal the correct amount of medicine. Overdosing kills the animal. \n");
+                System.out.println("Please give " + zoo.getAnimal(i).getName() + " the correct amount of medicine. Overdosing kills the animal. \n");
     
                 if (zoo.getAnimal(i).getHealthStatus() < sickAnimalStatus) {
                     System.out.println("The current sick animal is: " + zoo.getAnimal(i).getName() + " and the health status is: " + zoo.getAnimal(i).getHealthStatus() + ".");
@@ -106,6 +114,7 @@ public class ZooKeeper {
             } 
             if (zoo.getAnimal(i).getHealthStatus() >= sickAnimalStatus && zoo.getAnimal(i).getHealthStatus() <= maxHealthSatus) {
                 System.out.println(zoo.getAnimal(i).getName() + "'s health is all good!\n");
+                System.out.println("---------------------------------------------------");
                 continue;
             }
                 System.out.println(zoo.getAnimal(i).getName() + " is dead. Can't give medicine to a dead animal!");
