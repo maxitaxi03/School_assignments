@@ -8,36 +8,7 @@
 
 #ifndef Assign01_h
 #define Assign01_h
-// 1 bucket sort
-//void bucketSort(int table[],int max) {
-//    int largest = table[0];
-//    for(int i = 0; i < max; i++) {
-//        if(table[i]>largest) {
-//            largest = table[i];
-//        }
-//    }
-//
-//    int buckets[largest+1];
-//    for(int i =0; i < largest+1; i++) {
-//        buckets[i] = 0;
-//    }
-//
-//    for(int i = 0;i<max;i++) {
-//        buckets[table[i]]++;
-//    }
-//
-//    int j = 0;
-//    for(int i = 0; i < largest+1; i++) {
-//        if(buckets[i] != 0) {
-//            for(int x = 0;x < buckets[i]; x++) {
-//                table[j] = i;
-//                j++;
-//            }
-//        }
-//    }
-//}
 
-//
 //void bucketSort(int table[], int max) {
 //    int largest = 0;
 //
@@ -194,7 +165,7 @@ void sort(int array[], int const begin, int const end)
     if (begin >= end)
         return;
   
-    auto mid = begin + (end - begin) / 2;
+    int mid = begin + (end - begin) / 2;
     sort(array, begin, mid);
     sort(array, mid + 1, end);
     merge(array, begin, mid, end);
