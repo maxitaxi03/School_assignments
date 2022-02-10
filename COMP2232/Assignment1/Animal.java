@@ -7,8 +7,8 @@ import java.util.Random;
 
 public class Animal {
     private Random gen = new Random();
-    final public int minHungerStatus = 0, maxHungerStatus = 5;
-    final public int minHealthStatus = 0, maxHealthStatus = 10;
+    final public int MIN_HUNGER_STATUS = 0, MAX_HUNGER_STATUS = 5;
+    final public int MIN_HEALTH_STATUS = 0, MAX_HEALTH_STATUS = 10;
 
     private String species, name;
     private int age, hungerStatus, healthStatus;
@@ -136,16 +136,16 @@ public class Animal {
     /**
      * Allows the animal to eat a set amount of food
      * while food is within the bounds (1, 5)
-     * if the food is more than the maxHungerStatus
+     * if the food is more than the MAX_HUNGER_STATUS
      * alert the user
      * While food is within bounds, and if the food and hungerStatus
-     * surpasses the maxHungerStatus, find the difference and add
+     * surpasses the MAX_HUNGER_STATUS, find the difference and add
      * the difference to hungerStatus to ensure hungerStatus of the monkey
      * isn't more than what it should be
      * @param food determines how much food the animal eats
      */
     public void eatFood(int food) {
-        if (food <= minHungerStatus) {
+        if (food <= MIN_HUNGER_STATUS) {
             throw new IllegalArgumentException("You can't overfeed the animal or give the animal nothing to eat.");
         }
         this.hungerStatus += food;
@@ -154,7 +154,7 @@ public class Animal {
     /**
      * Allows the animal to take a set amount of medicine
      * while the medicine is withing the bounds(1, 10)
-     * if the medicine is more than the maxHealthStatus
+     * if the medicine is more than the MAX_HEALTH_STATUS
      * alert the user
      * While the medicine is within the bounds, and if the medicine and healthStatus 
      * surpasses the maxHealthSatus, find the difference and add 
@@ -163,7 +163,7 @@ public class Animal {
      * @param medicine determines how much medicine the monkey takes
      */
     public void takeMedicine(int medicine) {
-        if (medicine <= this.minHealthStatus || medicine > this.maxHealthStatus) {
+        if (medicine <= this.MIN_HEALTH_STATUS || medicine > this.MAX_HEALTH_STATUS) {
             throw new IllegalArgumentException("Shouldn't give the animal too much medication nor give the animal nothing!");
         }
         this.healthStatus += medicine;
