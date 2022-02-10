@@ -1,11 +1,10 @@
-
 /**
  * @author      Maximus Boxill
  * @author      400008300
  */
 import java.lang.IllegalArgumentException;
 import java.util.Random;
-// animal class seems to work as expected: Tuesday 1st Feb, 2022
+
 public class Animal {
     private Random gen = new Random();
     final public int minHungerStatus = 0, maxHungerStatus = 5;

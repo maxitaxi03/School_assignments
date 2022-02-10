@@ -1,3 +1,8 @@
+/**
+ * @author      Maximus Boxill
+ * @author      400008300
+ */
+
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.lang.IllegalArgumentException;
@@ -90,7 +95,5 @@ public class Zoo {
      */
     public ArrayList<Animal> getCage() {
         return cage;
-    }
-
-    
+    }    
 }

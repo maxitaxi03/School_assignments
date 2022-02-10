@@ -1,3 +1,8 @@
+/**
+ * @author      Maximus Boxill
+ * @author      400008300
+ */
+
 import java.util.Scanner;
 import java.lang.IllegalArgumentException;
 
@@ -145,13 +150,13 @@ public class ZooManager {
                     System.out.println("\n");
                 }
                 else {
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException("Next time, please choose from 1 to 6 please.");
                 }
                     
             }
             else if (decision.equalsIgnoreCase(finished)) {
                 System.out.println("///////////////////////////////////////////////////////////////////////");
-                System.out.println("Thank you for taking the time to check on the animals. Have a good day! " + zooKeeperName);
+                System.out.println("Thank you for taking the time to check on the animals. Have a good day " + zooKeeperName + "!");
                 break;
             }
             else 

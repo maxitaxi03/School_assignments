@@ -1,3 +1,9 @@
+/**
+ * @author      Maximus Boxill
+ * @author      400008300
+ */
+
+
 import java.util.Scanner;
 // import java.lang.IllegalArgumentException;
 public class ZooKeeper {
@@ -16,14 +22,13 @@ public class ZooKeeper {
      * then alert the user, indicating you can't feed the animal nothing
      * if the animal is overfed, for now this code alters the user that the animal is dead
      * but waiting on confirmation on what to do
-     * @param zoo this is the place where all animals are located
+     * @param zoo is the place where all animals are located
      */
     public void feedAnimals(Zoo zoo) {
         Scanner scan = new Scanner(System.in);
         boolean aliveStatus;
         final int maxHungerStatus = 5;
-        // size is 3
-        // xade[1]
+        
         for (int i = 1; i <= zoo.getCage().size(); i++) {
             if (zoo.getAnimal(i).aliveStatus() == false) {
                 System.out.println(zoo.getAnimal(i).getName() + " is dead. Can't feed a dead animal!");
@@ -85,9 +90,9 @@ public class ZooKeeper {
      * Gives each animal in the zoo medicine
      * if the medicine is 0 or less
      * alert the user, indicating you can't administer medcine that doesn't exist
-     * if the animal is overdoses, then the code for now alters the user that the animal is dead
-     * but waiting on confirmatioon on what to do
-     * @param zoo
+     * If you give the animal more medicine than it needs, then the animal perishes
+     * Only animals that are sick will be given medicine
+     * @param zoo is where all the animals are stored
      */
     public void healAnimals(Zoo zoo) {
         Scanner scan = new Scanner(System.in);
