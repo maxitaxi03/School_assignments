@@ -37,7 +37,7 @@ public class ZooKeeper {
             }
 
             if (zoo.getAnimal(i).getHungerStatus() == MAX_HUNGER_STATUS) {
-                System.out.println(zoo.getAnimal(i).getName() + " This animal is already full. Can't feed the animal!");
+                System.out.println(zoo.getAnimal(i).getName() + " is already full. Can't feed the animal!");
                 System.out.println("----------------------------------------------------------------");
                 continue;
             }
@@ -79,7 +79,7 @@ public class ZooKeeper {
 
             System.out.println("\n");
 
-            zoo.getAnimal(i).eatFood(food);
+            // zoo.getAnimal(i).eatFood(food);
             aliveStatus = (zoo.getAnimal(i).getHungerStatus() > MAX_HUNGER_STATUS) ? false : true;
             zoo.getAnimal(i).setAliveStatus(aliveStatus);
             
