@@ -9,8 +9,8 @@ import java.lang.IllegalArgumentException;
 public class ZooManager {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        String start = "start";
-        String finished = "finished";
+        final String start = "start"; // indicates when user wants to start
+        final String finished = "finished"; // indicates when user finished
 
         System.out.println("Welcome to the Zoo! Please enter your zoo keeper name.");
         System.out.print("Enter your name here ZooKeeper--> ");;
@@ -162,5 +162,5 @@ public class ZooManager {
             else 
                 throw new IllegalArgumentException("Only 'start' and 'finished are valid inputs!'");
         }
-    }
-}
+    } 
+} // ZooManager

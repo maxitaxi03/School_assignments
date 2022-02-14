@@ -128,7 +128,10 @@ public class Animal {
     public void setHealthStatus(int healthStatus) {
         this.healthStatus = healthStatus;
     }
-
+    /**
+     * 
+     * @param aliveStatus determines if the animal is alive or not
+     */
     public void setAliveStatus(boolean aliveStatus) {
         this.isAliveStatus = aliveStatus;
     }
@@ -175,4 +178,4 @@ public class Animal {
     public void speak() {
         System.out.println("Make noise");
     }
-}
+} // Animal
