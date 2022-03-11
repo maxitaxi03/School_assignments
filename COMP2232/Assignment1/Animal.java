@@ -10,9 +10,9 @@ public class Animal {
     final public int MIN_HUNGER_STATUS = 0, MAX_HUNGER_STATUS = 5;
     final public int MIN_HEALTH_STATUS = 0, MAX_HEALTH_STATUS = 10;
 
-    private String species, name;
-    private int age, hungerStatus, healthStatus;
-    private boolean isAliveStatus;
+    protected String species, name, category, cageID;
+    protected int age, hungerStatus, healthStatus;
+    protected boolean isAliveStatus;
 
     /**
      * Animal constructor initialises the datamembers
@@ -27,9 +27,14 @@ public class Animal {
         this.hungerStatus = gen.nextInt(5) + 1;
         this.healthStatus = gen.nextInt(10) + 1;
         this.isAliveStatus = true;
+        this.cageID = "";
+        this.category = "";
         // this.isAliveStatus = false;
     }
 
+    public void setCageID(String cageID) {
+        this.cageID = cageID;
+    }
     /**
      * 
      * @return the species of the animal
@@ -80,8 +85,11 @@ public class Animal {
 
     /**
      * 
-     * @return the status of the animal when alive
+     * @return the cageID where the animal is residing
      */
+    public String getCageID() {
+        return cageID;
+    }
     
 
     /**

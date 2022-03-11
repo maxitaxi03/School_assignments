@@ -29,7 +29,8 @@ public class ZooKeeper {
         boolean aliveStatus; // is animal alive or not
         final int MAX_HUNGER_STATUS = 5; // maximum hunger value
         
-        for (int i = 1; i <= zoo.getCage().size(); i++) {
+        
+        for (int i = 1; i <= zoo.getCages().size(); i++) {
             if (zoo.getAnimal(i).aliveStatus() == false) {
                 System.out.println(zoo.getAnimal(i).getName() + " is dead. Can't feed a dead animal!");
                 System.out.println("----------------------------------------------------------------");
@@ -100,7 +101,7 @@ public class ZooKeeper {
         final int SICK_ANIMAL_STATUS = 8; // sick status of animal
         final int MAX_HEALTH_STATUS = 10; // max health status of animal
 
-        for (int i = 1; i <= zoo.getCage().size(); i++) {
+        for (int i = 1; i <= zoo.getCages().size(); i++) {
             if (zoo.getAnimal(i).aliveStatus() == true) { 
                 System.out.println("Please give " + zoo.getAnimal(i).getName() + " the correct amount of medicine. Overdosing kills the animal. \n");
     

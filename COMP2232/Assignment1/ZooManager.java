@@ -91,7 +91,7 @@ public class ZooManager {
                 }
                 else if (choice == 2) {
                     String changeLine = scan.nextLine();
-                    if (zoo.getCage().size() == 0) {
+                    if (zoo.getCages().size() == 0) {
                         System.out.println("There are no animals in the zoo.");
                     }
                     zoo.showAnimals();
@@ -103,7 +103,7 @@ public class ZooManager {
                 }
                 else if (choice == 3) {
                     String changeLine = scan.nextLine();
-                    if (zoo.getCage().size() == 0) {
+                    if (zoo.getCages().size() == 0) {
                         System.out.println("There are no animals in the zoo.");
                         
                     }
@@ -115,7 +115,7 @@ public class ZooManager {
                 }
                 else if (choice == 4) {
                     String changeLine = scan.nextLine();
-                    if (zoo.getCage().size() == 0) {
+                    if (zoo.getCages().size() == 0) {
                         System.out.println("There are no animals in the zoo.");
                     }
 
@@ -127,7 +127,7 @@ public class ZooManager {
                 }
                 else if (choice == 5) {
                     String changeLine = scan.nextLine();
-                    if (zoo.getCage().size() == 0) {
+                    if (zoo.getCages().size() == 0) {
                         System.out.println("There are no animals in the zoo.");
                     }
 
@@ -139,7 +139,7 @@ public class ZooManager {
                 }
                 else if (choice == 6) {
                     String changeLine = scan.nextLine();
-                    if (zoo.getCage().size() == 0) {
+                    if (zoo.getCages().size() == 0) {
                         System.out.println("There are no animals in the zoo.");
                     }
                     
