@@ -1,0 +1,8 @@
+Zoo.java
+- Changed attributes from private to protected
+- Added "category" attribute
+- Added "cageID" attribute
+- completed all methods 
+- tested all methods
+- seem to be working as expected
+
