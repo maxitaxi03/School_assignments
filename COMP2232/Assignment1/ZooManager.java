@@ -1,166 +1,146 @@
 /**
  * @author      Maximus Boxill
  * @author      400008300
+ * @author      Asha Cumberbatch
  */
 
-import java.util.Scanner;
-import java.lang.IllegalArgumentException;
 
-public class ZooManager {
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        final String start = "start"; // indicates when user wants to start
-        final String finished = "finished"; // indicates when user finished
+import java.awt.*;
+import java.awt.event.*;
 
-        System.out.println("Welcome to the Zoo! Please enter your zoo keeper name.");
-        System.out.print("Enter your name here ZooKeeper--> ");;
-        String zooKeeperName = scan.nextLine();
+import javax.print.attribute.standard.MediaName;
+import javax.swing.*;
 
-        ZooKeeper zooKeeper = new ZooKeeper();
-        zooKeeper.setName(zooKeeperName);
 
-        Zoo zoo = new Zoo();
+public class ZooManager extends JFrame implements ActionListener {
+    
+    /***************GUI OBJECTS GO HERE************************/ 
 
-        System.out.println("If you wish to monitor the animals, enter 'start'");
-        System.out.println("------------------------------------------------------------");
+    JFrame mainFrame;
+    // LABELS GO HERE
+    JLabel welcomeLabel;
+    JLabel cageIDLabel;
+    JLabel nameLabel;
+    JLabel speciesLabel;
+    JLabel categoryLabel;
+    JLabel hungerLabel;
+    JLabel healthLabel;
 
-        String decision = scan.nextLine();
+    JLabel cageID;
 
-        System.out.println("When you're finished, please indicate by entering 'finished'");
-        System.out.println("------------------------------------------------------------");
 
-        System.out.println("\n");
 
-        while (decision.equalsIgnoreCase(start) || decision.equalsIgnoreCase(finished)) {
-            if (decision.equalsIgnoreCase(start)) {
-                System.out.println("Choose one of the following options by indicating the number.");
-                System.out.println("------------------------------------------------------------");
-                System.out.println("1)| Add animals to the zoo.");
-                System.out.println("------------------------------------------------------------");
-                System.out.println("2)| View all the animals in the zoo.");
-                System.out.println("------------------------------------------------------------");
-                System.out.println("3)| Feed all the animals in the zoo.");
-                System.out.println("------------------------------------------------------------");
-                System.out.println("4)| Heal all the sick animals in the zoo.");
-                System.out.println("------------------------------------------------------------");
-                System.out.println("5)| View all the animals that have passed away.");
-                System.out.println("------------------------------------------------------------");
-                System.out.println("6)| View all the animals that are alive.");
-                System.out.println("------------------------------------------------------------");
+   // PANELS GO HERE
+    JPanel animalPanel;
+    JPanel feedingReportPanel;
+    JPanel foodPanel;
+    JPanel welcomePanel;
+    JPanel medicinePanel;
+    JPanel healingPanel;
 
-                System.out.print("Enter your choice here please -> ");
-                int choice = scan.nextInt();
-                System.out.println("____________________________________________________________\n");
+    // BUTTONS GO HERE
+    JButton nextAnimalBtn;
+    JButton welcomeBtn;
 
-                if (choice == 1) {
-                    System.out.print("Please indicate how many animals you would like to add: ");
-                    int numberOfAnimals = scan.nextInt();
-                    String changeLine = scan.nextLine();
 
-                    for (int i = 0; i < numberOfAnimals; i++) {
-                        Animal animal = new Animal();
-                        System.out.println("-----------------------------------------");
-                        System.out.print("Please enter the name of the animal: ");
-                        String name = scan.nextLine();
-                        
-                        System.out.println("\n");
+    
 
-                        System.out.print("Please enter the species of the animal: ");
-                        String species = scan.nextLine();
+    /***************GUI OBJECTS END HERE************************/ 
 
-                        System.out.println("\n");
+    private String userName;
+    Zoo zoo;
 
-                        System.out.print("Please enter the age of the animal: ");
-                        int age = scan.nextInt();
-                        System.out.println("-----------------------------------------");
-                        System.out.println("\n");
-                        changeLine = scan.nextLine();
+    public ZooManager() {
+        initFrame();
+        centerFrame();
+       
+    }
 
-                        animal.setName(name);
-                        animal.setSpecies(species);
-                        animal.setAge(age);
+    private void centerFrame() {
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        
+        // determine the new location of the window
+        int w = mainFrame.getSize().width;
+        int h = mainFrame.getSize().height;
+        int x = (dim.width - w) / 2;
+        int y = (dim.height - h) / 2;
 
-                        zoo.addAnimal(animal);
-                    }
-                    
+        mainFrame.setLocation(x, y);
+    }
 
-                    System.out.println("Would you like to restart? If so, indicate by entering 'start'. If not, indicate by entering 'finished.'");
-                    System.out.print("Type here please -> ");
-                    decision = scan.nextLine();
-                    System.out.println("\n");
-                }
-                else if (choice == 2) {
-                    String changeLine = scan.nextLine();
-                    if (zoo.getCages().size() == 0) {
-                        System.out.println("There are no animals in the zoo.");
-                    }
-                    zoo.showAnimals();
-                    System.out.println("Would you like to restart? If so, indicate by entering 'start'. If not, indicate by entering 'finished.'");
-                    System.out.print("Type here please -> ");
-                    decision = scan.nextLine();
-                    System.out.println("\n");
+    public void initFrame() {
+        mainFrame = new JFrame("Gridlayout stuff");
+        mainFrame.setSize(1000, 600);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setLayout(new GridLayout(2, 3, 10, 10));
 
-                }
-                else if (choice == 3) {
-                    String changeLine = scan.nextLine();
-                    if (zoo.getCages().size() == 0) {
-                        System.out.println("There are no animals in the zoo.");
-                        
-                    }
-                    zooKeeper.feedAnimals(zoo);
-                    System.out.println("Would you like to restart? If so, indicate by entering 'start'. If not, indicate by entering 'finished.'");
-                    System.out.print("Type here please -> ");
-                    decision = scan.nextLine();
-                    System.out.println("\n");
-                }
-                else if (choice == 4) {
-                    String changeLine = scan.nextLine();
-                    if (zoo.getCages().size() == 0) {
-                        System.out.println("There are no animals in the zoo.");
-                    }
+        
+        // PANELS TO BE WORKED ON
+        animalPanel = new JPanel(new GridLayout(6, 2));
+        animalPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 
-                    zooKeeper.healAnimals(zoo);
-                    System.out.println("Would you like to restart? If so, indicate by entering 'start'. If not, indicate by entering 'finished.'");
-                    System.out.print("Type here please -> ");
-                    decision = scan.nextLine();
-                    System.out.println("\n");
-                }
-                else if (choice == 5) {
-                    String changeLine = scan.nextLine();
-                    if (zoo.getCages().size() == 0) {
-                        System.out.println("There are no animals in the zoo.");
-                    }
 
-                    zoo.showDeadAnimals();
-                    System.out.println("Would you like to restart? If so, indicate by entering 'start'. If not, indicate by entering 'finished.'");
-                    System.out.print("Type here please -> ");
-                    decision = scan.nextLine();
-                    System.out.println("\n");
-                }
-                else if (choice == 6) {
-                    String changeLine = scan.nextLine();
-                    if (zoo.getCages().size() == 0) {
-                        System.out.println("There are no animals in the zoo.");
-                    }
-                    
-                    zoo.showAliveAnimals();
-                    System.out.println("Would you like to restart? If so, indicate by entering 'start'. If not, indicate by entering 'finished.'");
-                    System.out.print("Type here please -> ");
-                    decision = scan.nextLine();
-                    System.out.println("\n");
-                }
-                else {
-                    throw new IllegalArgumentException("Next time, please choose from 1 to 6 please.");
-                }
-                    
-            }
-            else if (decision.equalsIgnoreCase(finished)) {
-                System.out.println("///////////////////////////////////////////////////////////////////////");
-                System.out.println("Thank you for taking the time to check on the animals. Have a good day " + zooKeeperName + "!");
-                break;
-            }
-            else 
-                throw new IllegalArgumentException("Only 'start' and 'finished are valid inputs!'");
-        }
+        feedingReportPanel = new JPanel(new GridLayout(2, 2));
+        foodPanel = new JPanel(new GridLayout(2, 2));
+        welcomePanel = new JPanel(new GridLayout(2, 2));
+        welcomePanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        medicinePanel = new JPanel(new GridLayout(2, 2));
+        healingPanel = new JPanel(new GridLayout(2, 2));
+        
+        // BUTTON INITIALISATIONS GO HERE
+        nextAnimalBtn = new JButton("Next");
+        welcomeBtn = new JButton("Zookeeper 2.0 logo");
+       
+
+        // BUTTON OPERATIONS GO HERE
+    //    int w = welcomePanel.getSize().width;
+        welcomeBtn.setPreferredSize(new Dimension(5, 5));
+       
+        
+        
+        // LABELS INITIALISATIONS GO HERE
+        welcomeLabel = new JLabel();
+        cageIDLabel = new JLabel("CageID");
+        cageID = new JLabel();
+        nameLabel = new JLabel();
+        speciesLabel = new JLabel();
+        categoryLabel = new JLabel();
+        hungerLabel = new JLabel();
+        healthLabel = new JLabel();
+
+        userName = JOptionPane.showInputDialog(mainFrame, "Enter your message");
+        welcomeLabel.setText("Welcome message goes here with " + userName);
+        welcomeLabel.setVerticalAlignment(JLabel.TOP);
+
+        // Adding stuff to the mainFrame
+        mainFrame.add(animalPanel);
+        mainFrame.add(feedingReportPanel);
+        mainFrame.add(foodPanel);
+        mainFrame.add(welcomePanel);
+        mainFrame.add(medicinePanel);
+        mainFrame.add(healingPanel);
+        
+
+        // Adding stuff to the welcomePanel
+        welcomePanel.setBackground(Color.red);
+        welcomePanel.add(welcomeLabel);
+        welcomePanel.add(welcomeBtn);
+        
+        // Adding stuff to the animalPanel
+        animalPanel.add(cageIDLabel);
+        
+
+        mainFrame.setVisible(true);
+
+    }
+    public static void main(String[] args) throws Exception {
+        ZooManager zooManager = new ZooManager();
+        
     } 
+
+    public void actionPerformed(ActionEvent e) {
+        
+        
+
+    }
 } // ZooManager

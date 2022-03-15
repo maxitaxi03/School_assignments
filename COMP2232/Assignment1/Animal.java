@@ -145,6 +145,14 @@ public class Animal {
     }
 
     /**
+     * 
+     * @param category determines whether the animal is herbivore, carnivore or omnivore
+     */
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    /**
      * Allows the animal to eat a set amount of food
      * while food is within the bounds (1, 5)
      * if the food is more than the MAX_HUNGER_STATUS

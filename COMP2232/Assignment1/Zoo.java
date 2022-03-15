@@ -5,13 +5,18 @@
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.io.File;
 import java.lang.IllegalArgumentException;
+import java.util.Scanner;
+import java.text.*; // is used to separate the species with hyphens
+
 
 public class Zoo extends ZooManager {
     private ArrayList<Animal> cages;
-
+    
     public Zoo() {
         cages = new ArrayList<>();
+        
     }
     /**
      * Appending animals to the arraylist
@@ -135,6 +140,9 @@ public class Zoo extends ZooManager {
         return animall;
     }
 
+    /**
+     * Prints the hunger status of the animal
+     */
     public void printHungerReport() {
         for (Animal animal : cages) {
             if (animal.aliveStatus() == true) {
@@ -144,8 +152,10 @@ public class Zoo extends ZooManager {
             }
         }
     }
-
-    public void printHealthStatus() {
+    /**
+     * Prints the health status of the animal
+     */
+    public void printHealthReport() {
         for (Animal animal : cages) {
             if (animal.aliveStatus() == true) {
                 System.out.println("Animal name: " + animal.getName());
@@ -153,5 +163,41 @@ public class Zoo extends ZooManager {
                 System.out.println("Health status is " + animal.getHealthStatus());
             }
         }
+    }
+
+    /**
+     * This method reads data from animals.txt and populates the cages arraylist
+     * @throws Exception
+     */
+    public void readFile() throws Exception {
+        File fileName = new File("animals.txt");
+        Scanner file = new Scanner(fileName);
+        String str = "";
+        String[] splitString;
+       
+
+        while (file.hasNext()) {
+            Animal animal = new Animal();
+            str = file.nextLine();
+            
+
+            splitString = str.split(" ");
+
+            animal.setCageID(splitString[0]);
+            animal.setName(splitString[1]);
+
+            // set species adds the hyphen, which is not meant to happen
+            // fix this
+            animal.setSpecies(splitString[2]);
+
+            animal.setAge(Integer.parseInt(splitString[3]));
+            animal.setHungerStatus(Integer.parseInt(splitString[4]));
+            animal.setHealthStatus(Integer.parseInt(splitString[5]));
+            animal.setCategory(splitString[6]);
+
+            cages.add(animal);
+            
+        }
+        file.close();
     }
 } // Zoo
