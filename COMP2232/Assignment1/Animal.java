@@ -90,6 +90,10 @@ public class Animal {
     public String getCageID() {
         return cageID;
     }
+
+    public String getCategory() {
+        return category;
+    }
     
 
     /**

@@ -49,7 +49,7 @@ public class TestClient {
 
         
         // zoo.removeAnimal("A-73");
-        zoo.readFile();
+        // zoo.readFile();
         zoo.showAnimals();
 
      

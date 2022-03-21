@@ -11,11 +11,11 @@ import java.util.Scanner;
 import java.text.*; // is used to separate the species with hyphens
 
 
-public class Zoo extends ZooManager {
+public class Zoo {
     private ArrayList<Animal> cages;
     
     public Zoo() {
-        cages = new ArrayList<>();
+        cages = new ArrayList<Animal>();
         
     }
     /**
