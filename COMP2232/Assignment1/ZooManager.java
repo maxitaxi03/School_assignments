@@ -75,9 +75,13 @@ public class ZooManager extends JFrame implements ActionListener {
     JButton welcomeBtn;
     JButton logoBtn;
     JButton addBtn;
+    JButton printFoodListBtn;
+    JButton feedBtn;
+
 
     Animal animal;
-
+    AnimalFeeder animalFeeder;
+    
     
 
     /***************GUI OBJECTS END HERE************************/ 
@@ -88,6 +92,7 @@ public class ZooManager extends JFrame implements ActionListener {
 
     public ZooManager() {
         zoo = new Zoo();
+        animalFeeder = new AnimalFeeder(zoo.getCages());
         welcomePopup = new Welcome();
         initFrame();
         centerFrame();
@@ -113,8 +118,6 @@ public class ZooManager extends JFrame implements ActionListener {
 
         
         // PANELS TO BE WORKED ON
-        
-
 
         feedingReportPanel = new JPanel(new GridLayout(2, 2));
         // foodPanel = new JPanel(new GridLayout(2, 2));
@@ -132,7 +135,6 @@ public class ZooManager extends JFrame implements ActionListener {
         // int w = welcomePanel.getSize().width;
         welcomeBtn.setPreferredSize(new Dimension(5, 5));
         nextAnimalBtn.addActionListener(this);
-       
         
         // LABELS INITIALISATIONS GO HERE
         welcomeLabel = new JLabel();
@@ -174,8 +176,10 @@ public class ZooManager extends JFrame implements ActionListener {
         
         // Adding stuff to the animalPanel
 
+        
         try {
             showAnimal(animalPosition);
+            animal = getAnimal(animalPosition);
         }
         catch (Exception e) {
             System.out.println("Error" + e.getMessage());
@@ -217,11 +221,13 @@ public class ZooManager extends JFrame implements ActionListener {
         JPanel foodPanel = new JPanel();
         JPanel addBtnPanel = new JPanel();
         JPanel totalsPanel = new JPanel();
+        JPanel btnContainer = new JPanel();
 
         totalsPanel.setLayout(new GridLayout(6, 4, 10, 10));
         container.setLayout(new FlowLayout());
         addBtnPanel.setLayout(new FlowLayout());
         foodPanel.setLayout(new GridLayout(6, 2));
+        btnContainer.setLayout(new FlowLayout());
         
         JLabel typeLabel = new JLabel("Type");
         JLabel hayLabel = new JLabel("Hay");
@@ -303,6 +309,15 @@ public class ZooManager extends JFrame implements ActionListener {
         meatTextField = new JTextField("0");
         meatTextField.setColumns(5);
 
+        printFoodListBtn = new JButton("Print List");
+        printFoodListBtn.addActionListener(this);
+
+        feedBtn = new JButton("Feed");
+        feedBtn.addActionListener(this);
+
+        btnContainer.add(printFoodListBtn);
+        btnContainer.add(feedBtn);
+
         foodPanel.add(typeLabel);
         foodPanel.add(amountLabel);
         foodPanel.add(hayLabel);
@@ -323,19 +338,23 @@ public class ZooManager extends JFrame implements ActionListener {
         container.add(foodPanel);
         container.add(addBtnPanel);
         container.add(totalsPanel);
+        container.add(btnContainer);
 
         mainFrame.add(container);
         
     }
 
     public void actionPerformed(ActionEvent e) {
-        int count = 0;
+        int nextBtnCount = 0;
+        feedBtn.setEnabled(false);
+        
         if (e.getSource() == nextAnimalBtn) {
             animalPosition++;
+            nextBtnCount++;
             try {
                 showAnimal(animalPosition);
                 animal = getAnimal(animalPosition);
-                
+                addBtn.setEnabled(true);
 
             } 
             catch (Exception exception) {
@@ -380,6 +399,20 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(hayTextField.getText());
                         int finalNum = userNum + labelNum;
                         label.setText(Integer.toString(finalNum));
+                       
+                        hayTextField.setText("0");
+                        hayTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Hay");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
 
                     if (animal.getCageID().contains("B")) {
@@ -387,6 +420,20 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(hayTextField.getText());
                         int finalNum = userNum + labelNum;
                         label2.setText(Integer.toString(finalNum));
+                        
+                        hayTextField.setText("0");
+                        hayTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Hay");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
 
                     if (animal.getCageID().contains("C")) {
@@ -394,6 +441,20 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(hayTextField.getText());
                         int finalNum = userNum + labelNum;
                         label3.setText(Integer.toString(finalNum));
+
+                        hayTextField.setText("0");
+                        hayTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Hay");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
 
                     if (animal.getCageID().contains("D")) {
@@ -401,6 +462,20 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(hayTextField.getText());
                         int finalNum = userNum + labelNum;
                         label4.setText(Integer.toString(finalNum));
+
+                        hayTextField.setText("0");
+                        hayTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Hay");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
                 } catch (Exception exception) {
                     System.out.println("Error " + exception.getMessage());
@@ -421,6 +496,20 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(fruitTextField.getText());
                         int finalNum = userNum + labelNum;
                         label5.setText(Integer.toString(finalNum));
+
+                        fruitTextField.setText("0");
+                        fruitTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Fruit");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
 
                     if (animal.getCageID().contains("B")) {
@@ -428,6 +517,20 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(fruitTextField.getText());
                         int finalNum = userNum + labelNum;
                         label6.setText(Integer.toString(finalNum));
+
+                        fruitTextField.setText("0");
+                        fruitTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Fruit");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
 
                     if (animal.getCageID().contains("C")) {
@@ -435,6 +538,21 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(fruitTextField.getText());
                         int finalNum = userNum + labelNum;
                         label7.setText(Integer.toString(finalNum));
+
+                        fruitTextField.setText("0");
+                        fruitTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Fruit");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
+
                     }
 
                     if (animal.getCageID().contains("D")) {
@@ -442,10 +560,25 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(fruitTextField.getText());
                         int finalNum = userNum + labelNum;
                         label8.setText(Integer.toString(finalNum));
+
+                        fruitTextField.setText("0");
+                        fruitTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Fruit");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
                 } catch (Exception exception) {
                     System.out.println("Error " + exception.getMessage());
                 }
+                
             }
         }
         
@@ -462,6 +595,20 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(grainTextField.getText());
                         int finalNum = userNum + labelNum;
                         label9.setText(Integer.toString(finalNum));
+
+                        grainTextField.setText("0");
+                        grainTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Grain");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
 
                     if (animal.getCageID().contains("B")) {
@@ -469,6 +616,20 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(grainTextField.getText());
                         int finalNum = userNum + labelNum;
                         label10.setText(Integer.toString(finalNum));
+
+                        grainTextField.setText("0");
+                        grainTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Grain");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
 
                     if (animal.getCageID().contains("C")) {
@@ -476,6 +637,20 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(grainTextField.getText());
                         int finalNum = userNum + labelNum;
                         label11.setText(Integer.toString(finalNum));
+
+                        grainTextField.setText("0");
+                        grainTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Grain");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
 
                     if (animal.getCageID().contains("D")) {
@@ -483,6 +658,20 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(grainTextField.getText());
                         int finalNum = userNum + labelNum;
                         label12.setText(Integer.toString(finalNum));
+
+                        grainTextField.setText("0");
+                        grainTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Grain");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
                 } catch (Exception exception) {
                     System.out.println("Error " + exception.getMessage());
@@ -503,6 +692,20 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(fishTextField.getText());
                         int finalNum = userNum + labelNum;
                         label13.setText(Integer.toString(finalNum));
+
+                        fishTextField.setText("0");
+                        fishTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Fish");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
 
                     if (animal.getCageID().contains("B")) {
@@ -510,6 +713,20 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(fishTextField.getText());
                         int finalNum = userNum + labelNum;
                         label14.setText(Integer.toString(finalNum));
+
+                        fishTextField.setText("0");
+                        fishTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Fish");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
 
                     if (animal.getCageID().contains("C")) {
@@ -517,6 +734,20 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(fishTextField.getText());
                         int finalNum = userNum + labelNum;
                         label15.setText(Integer.toString(finalNum));
+
+                        fishTextField.setText("0");
+                        fishTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Fish");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
 
                     if (animal.getCageID().contains("D")) {
@@ -524,6 +755,20 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(fishTextField.getText());
                         int finalNum = userNum + labelNum;
                         label16.setText(Integer.toString(finalNum));
+
+                        fishTextField.setText("0");
+                        fishTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Fish");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
                 } catch (Exception exception) {
                     System.out.println("Error " + exception.getMessage());
@@ -536,6 +781,7 @@ public class ZooManager extends JFrame implements ActionListener {
             this.grainTextField.setEnabled(false);
             this.grainTextField.setEnabled(false);
             this.fishTextField.setEnabled(false);
+
             if (e.getSource() == addBtn) {
                 try {
                     if (animal.getCageID().contains("A")) {
@@ -543,6 +789,20 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(meatTextField.getText());
                         int finalNum = userNum + labelNum;
                         label17.setText(Integer.toString(finalNum));
+
+                        meatTextField.setText("0");
+                        meatTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Meat");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
 
                     if (animal.getCageID().contains("B")) {
@@ -550,6 +810,20 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(meatTextField.getText());
                         int finalNum = userNum + labelNum;
                         label18.setText(Integer.toString(finalNum));
+
+                        meatTextField.setText("0");
+                        meatTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Meat");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
 
                     if (animal.getCageID().contains("C")) {
@@ -557,6 +831,20 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(meatTextField.getText());
                         int finalNum = userNum + labelNum;
                         label19.setText(Integer.toString(finalNum));
+
+                        meatTextField.setText("0");
+                        meatTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Meat");
+
+                        meal.setFoodAmt(userNum);
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
 
                     if (animal.getCageID().contains("D")) {
@@ -564,11 +852,27 @@ public class ZooManager extends JFrame implements ActionListener {
                         int userNum = Integer.parseInt(meatTextField.getText());
                         int finalNum = userNum + labelNum;
                         label20.setText(Integer.toString(finalNum));
+
+                        meatTextField.setText("0");
+                        meatTextField.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                        Meal meal = new Meal();
+                        meal.setFoodType("Meat");
+
+                        meal.setFoodAmt(userNum);
+                        animalFeeder.createNewMeal(meal);
+
+                        animalFeeder.addMeal();
                     }
                 } catch (Exception exception) {
                     System.out.println("Error " + exception.getMessage());
                 }
             }
+        }
+
+        if (nextBtnCount == zoo.getCages().size() - 1) {
+            feedBtn.setEnabled(true);
         }
 
     }

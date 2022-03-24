@@ -50,8 +50,19 @@ public class TestClient {
         
         // zoo.removeAnimal("A-73");
         // zoo.readFile();
-        zoo.showAnimals();
+        ArrayList<Integer> arr = new ArrayList<>();
+        arr.add(1);
+        arr.add(2);
+        arr.add(3);
+        arr.add(2);
+        arr.add(24);
+        arr.add(25);
+        arr.add(2);
+        arr.add(2);
+        arr.add(2);
 
+
+        System.out.println("Size of array is " + arr.size());
      
 
         // for (int i = 1; i <= zoo.getCages().size(); i++) {

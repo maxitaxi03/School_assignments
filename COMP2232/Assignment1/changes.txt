@@ -6,3 +6,20 @@ Zoo.java
 - tested all methods
 - seem to be working as expected
 
+ZooManager.java
+- something is wrong with the food panel; when i leave a number in the
+text field, add it to the totals panel and click next, all the numbers are disabled
+because the value entered before is still in the text field 
+
+- the first animal is not being seen as an animal with values in it,
+so the first animal is being seen as null, so you'd have to bear that in mind
+
+- some of the labels for the totals panel may not be working as expected, so if you
+see an error, please notify me as soon as possible 
+
+ZooManager
+- the feed buttong is not being enabled when i cycle through the cages 
+  I think it being disabled every time an action is performed, so that needs to be taken care of.
+- When i add a digit, the other options that are eligible for the particular animal is still
+  hightlighted
+- the first animal is still not being seen as an actual animal, and is being ignored. 
