@@ -7,8 +7,6 @@
 
 import java.awt.*;
 import java.awt.event.*;
-
-
 import javax.swing.*;
 
 
@@ -34,6 +32,7 @@ public class ZooManager extends JFrame implements ActionListener {
     JLabel hunger;
     JLabel health;
 
+    // these are the labels for the totals panel
     JLabel label;
     JLabel label2;
     JLabel label3;
@@ -78,9 +77,9 @@ public class ZooManager extends JFrame implements ActionListener {
     JButton printFoodListBtn;
     JButton feedBtn;
 
+    KeyListener keyListener; 
 
-    Animal animal;
-    AnimalFeeder animalFeeder;
+    
     
     
 
@@ -88,10 +87,24 @@ public class ZooManager extends JFrame implements ActionListener {
 
     Zoo zoo;
     Welcome welcomePopup;
+    Animal animal;
+    AnimalFeeder animalFeeder;
+    Date currentDate;
+
     int animalPosition = 1;
+    int nextBtnCount = 0; // is meant to be used to disable the feedBtn, but not working
 
     public ZooManager() {
         zoo = new Zoo();
+        try {
+            zoo.readFile();
+        }
+
+        // throw proper exception message here, using the right class
+        // not sure what that exception class would be, but it's a start
+        catch (Exception exception) {}
+
+        currentDate = new Date();
         animalFeeder = new AnimalFeeder(zoo.getCages());
         welcomePopup = new Welcome();
         initFrame();
@@ -176,10 +189,135 @@ public class ZooManager extends JFrame implements ActionListener {
         
         // Adding stuff to the animalPanel
 
+        // JTextField usernameTextField= new JTextField(); 
+        // usernameTextField.addKeyListener(new KeyAdapter() {
+        //  public void keyReleased(KeyEvent e) { 
+        //      JTextField textField = (JTextField) e.getSource(); 
+        //      String text = textField.getText(); textField.setText(text.toUpperCase()); 
+        //     } 
+        //      public void keyTyped(KeyEvent e) { } 
+        //      public void keyPressed(KeyEvent e) { } 
+        //     });
+        // may have to create a new class for the keylistener to work
         
         try {
             showAnimal(animalPosition);
             animal = getAnimal(animalPosition);
+
+            if (animal.getCategory().equals("Herbivore")) {
+                fishTextField.setEnabled(false);
+                meatTextField.setEnabled(false);
+            }
+            if (animal.getCategory().equals("Carnivore")) {
+                hayTextField.setEnabled(false);
+                fruitTextField.setEnabled(false);
+                grainTextField.setEnabled(false);
+            }
+            if (animal.getCategory().equals("Omnivore")) {
+                hayTextField.setEnabled(true);
+                fruitTextField.setEnabled(true);
+                grainTextField.setEnabled(true);
+                fishTextField.setEnabled(true);
+                meatTextField.setEnabled(true);
+            
+            }
+            
+            hayTextField.addKeyListener(new KeyAdapter() {
+                public void keyPressed(KeyEvent e) {
+                    int defaultValue = e.getKeyCode();
+    
+                    if (defaultValue > 0) {
+                        fruitTextField.setEnabled(false);
+                        grainTextField.setEnabled(false);
+                        fishTextField.setEnabled(false);
+                        meatTextField.setEnabled(false);
+                    }
+
+                    //  if the value is 0, the other textfields should be re-enabled
+                    // if (defaultValue == 0) {
+                    //     if (animal.getCategory().equals("Omnivore")) {
+                    //         hayTextField.setEnabled(true);
+                    //         fruitTextField.setEnabled(true);
+                    //         grainTextField.setEnabled(true);
+                    //         fishTextField.setEnabled(true);
+                    //         meatTextField.setEnabled(true);
+                    //     }
+
+                    //     if (animal.getCategory().equals("Herbivore")) {
+                    //         hayTextField.setEnabled(true);
+                    //         fruitTextField.setEnabled(true);
+                    //         grainTextField.setEnabled(true);
+                    //     }
+                    // }
+                }
+            });
+
+            grainTextField.addKeyListener(new KeyAdapter() {
+                public void keyPressed(KeyEvent e) {
+                    int defaultValue = e.getKeyCode();
+    
+                    if (defaultValue > 0) {
+                        fruitTextField.setEnabled(false);
+                        hayTextField.setEnabled(false);
+                        fishTextField.setEnabled(false);
+                        meatTextField.setEnabled(false);
+                    }
+                    if (defaultValue == 0) {
+                        
+                    }
+                }
+            });
+
+            fruitTextField.addKeyListener(new KeyAdapter() {
+                public void keyPressed(KeyEvent e) {
+                    int defaultValue = e.getKeyCode();
+    
+                    if (defaultValue > 0) {
+                        hayTextField.setEnabled(false);
+                        grainTextField.setEnabled(false);
+                        fishTextField.setEnabled(false);
+                        meatTextField.setEnabled(false);
+                    }
+                    if (defaultValue == 0) {
+                        
+                    }
+                }
+            });
+
+            fishTextField.addKeyListener(new KeyAdapter() {
+                public void keyPressed(KeyEvent e) {
+                    int defaultValue = e.getKeyCode();
+    
+                    if (defaultValue > 0) {
+                        fruitTextField.setEnabled(false);
+                        grainTextField.setEnabled(false);
+                        hayTextField.setEnabled(false);
+                        meatTextField.setEnabled(false);
+                    }
+                    if (defaultValue == 0) {
+                        
+                    }
+                }
+            });
+
+            meatTextField.addKeyListener(new KeyAdapter() {
+                public void keyPressed(KeyEvent e) {
+                    int defaultValue = e.getKeyCode();
+    
+                    if (defaultValue > 0) {
+                        fruitTextField.setEnabled(false);
+                        grainTextField.setEnabled(false);
+                        fishTextField.setEnabled(false);
+                        hayTextField.setEnabled(false);
+                    }
+                    if (defaultValue == 0) {
+                        
+                    }
+                }
+            });
+
+
+            
         }
         catch (Exception e) {
             System.out.println("Error" + e.getMessage());
@@ -344,10 +482,27 @@ public class ZooManager extends JFrame implements ActionListener {
         
     }
 
-    public void actionPerformed(ActionEvent e) {
-        int nextBtnCount = 0;
-        feedBtn.setEnabled(false);
+    public void feedingReportPanel() {
+        JPanel mainContainer = new JPanel(new GridLayout(2, 1));
+        JButton printReportBtn = new JButton("Print Report");
+
+        feedingReportPanel = new JPanel();
+        feedingReportPanel.add(new JScrollPane(feedingReportPanel));
+
+        JLabel date = new JLabel();
+        date.setText(currentDate.getDate());
         
+        // some check to see which animals have been fed 
+        // to then know the total number of animals that have been fed 
+        // seems a bit extreme, so i don't think i will be doing that for 
+        // the time being
+        
+        JLabel numberOfAnimalsFed = new JLabel();
+
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+
         if (e.getSource() == nextAnimalBtn) {
             animalPosition++;
             nextBtnCount++;
@@ -355,12 +510,24 @@ public class ZooManager extends JFrame implements ActionListener {
                 showAnimal(animalPosition);
                 animal = getAnimal(animalPosition);
                 addBtn.setEnabled(true);
-
+                
             } 
             catch (Exception exception) {
                 System.out.println("Error " + exception.getMessage());
             }
         }
+
+        if (nextBtnCount < zoo.getCages().size() - 1) {
+            feedBtn.setEnabled(false);
+            printFoodListBtn.setEnabled(false);
+        }
+
+        else {
+            feedBtn.setEnabled(true);
+            printFoodListBtn.setEnabled(true);
+        }
+
+        
 
         if (animal.getCategory().equalsIgnoreCase("Herbivore")) {
             this.hayTextField.setEnabled(true);
@@ -386,108 +553,99 @@ public class ZooManager extends JFrame implements ActionListener {
             this.meatTextField.setEnabled(true);
         }
 
-        if (Integer.parseInt(hayTextField.getText()) > 0) {
-            this.fruitTextField.setEnabled(false);
-            this.grainTextField.setEnabled(false);
-            this.fishTextField.setEnabled(false);
-            this.meatTextField.setEnabled(false);
+        if (e.getSource() == addBtn) {
+            try {
+                if (animal.getCageID().contains("A")) {
+                    int labelNum = Integer.parseInt(label.getText());
+                    int userNum = Integer.parseInt(hayTextField.getText());
+                    int finalNum = userNum + labelNum;
+                    label.setText(Integer.toString(finalNum));
 
-            if (e.getSource() == addBtn) {
-                try {
-                    if (animal.getCageID().contains("A")) {
-                        int labelNum = Integer.parseInt(label.getText());
-                        int userNum = Integer.parseInt(hayTextField.getText());
-                        int finalNum = userNum + labelNum;
-                        label.setText(Integer.toString(finalNum));
-                       
-                        hayTextField.setText("0");
-                        hayTextField.setEnabled(false);
-                        addBtn.setEnabled(false);
+                    hayTextField.setText("0");
+                    hayTextField.setEnabled(false);
+                    fruitTextField.setEnabled(false);
+                    grainTextField.setEnabled(false);
 
-                        Meal meal = new Meal();
-                        meal.setFoodType("Hay");
+                    addBtn.setEnabled(false);
 
-                        meal.setFoodAmt(userNum);
+                    Meal meal = new Meal();
+                    meal.setFoodType("Hay");
 
-                        meal.setFoodAmt(userNum);
-                        animalFeeder.createNewMeal(meal);
+                    meal.setFoodAmt(userNum);
 
-                        animalFeeder.addMeal();
-                    }
+                    meal.setFoodAmt(userNum);
+                    animalFeeder.createNewMeal(meal);
 
-                    if (animal.getCageID().contains("B")) {
-                        int labelNum = Integer.parseInt(label2.getText());
-                        int userNum = Integer.parseInt(hayTextField.getText());
-                        int finalNum = userNum + labelNum;
-                        label2.setText(Integer.toString(finalNum));
-                        
-                        hayTextField.setText("0");
-                        hayTextField.setEnabled(false);
-                        addBtn.setEnabled(false);
-
-                        Meal meal = new Meal();
-                        meal.setFoodType("Hay");
-
-                        meal.setFoodAmt(userNum);
-
-                        meal.setFoodAmt(userNum);
-                        animalFeeder.createNewMeal(meal);
-
-                        animalFeeder.addMeal();
-                    }
-
-                    if (animal.getCageID().contains("C")) {
-                        int labelNum = Integer.parseInt(label3.getText());
-                        int userNum = Integer.parseInt(hayTextField.getText());
-                        int finalNum = userNum + labelNum;
-                        label3.setText(Integer.toString(finalNum));
-
-                        hayTextField.setText("0");
-                        hayTextField.setEnabled(false);
-                        addBtn.setEnabled(false);
-
-                        Meal meal = new Meal();
-                        meal.setFoodType("Hay");
-
-                        meal.setFoodAmt(userNum);
-
-                        meal.setFoodAmt(userNum);
-                        animalFeeder.createNewMeal(meal);
-
-                        animalFeeder.addMeal();
-                    }
-
-                    if (animal.getCageID().contains("D")) {
-                        int labelNum = Integer.parseInt(label4.getText());
-                        int userNum = Integer.parseInt(hayTextField.getText());
-                        int finalNum = userNum + labelNum;
-                        label4.setText(Integer.toString(finalNum));
-
-                        hayTextField.setText("0");
-                        hayTextField.setEnabled(false);
-                        addBtn.setEnabled(false);
-
-                        Meal meal = new Meal();
-                        meal.setFoodType("Hay");
-
-                        meal.setFoodAmt(userNum);
-
-                        meal.setFoodAmt(userNum);
-                        animalFeeder.createNewMeal(meal);
-
-                        animalFeeder.addMeal();
-                    }
-                } catch (Exception exception) {
-                    System.out.println("Error " + exception.getMessage());
+                    animalFeeder.addMeal();
                 }
+
+                if (animal.getCageID().contains("B")) {
+                    int labelNum = Integer.parseInt(label2.getText());
+                    int userNum = Integer.parseInt(hayTextField.getText());
+                    int finalNum = userNum + labelNum;
+                    label2.setText(Integer.toString(finalNum));
+
+                    hayTextField.setText("0");
+                    hayTextField.setEnabled(false);
+                    addBtn.setEnabled(false);
+
+                    Meal meal = new Meal();
+                    meal.setFoodType("Hay");
+
+                    meal.setFoodAmt(userNum);
+
+                    meal.setFoodAmt(userNum);
+                    animalFeeder.createNewMeal(meal);
+
+                    animalFeeder.addMeal();
+                }
+
+                if (animal.getCageID().contains("C")) {
+                    int labelNum = Integer.parseInt(label3.getText());
+                    int userNum = Integer.parseInt(hayTextField.getText());
+                    int finalNum = userNum + labelNum;
+                    label3.setText(Integer.toString(finalNum));
+
+                    hayTextField.setText("0");
+                    hayTextField.setEnabled(false);
+                    addBtn.setEnabled(false);
+
+                    Meal meal = new Meal();
+                    meal.setFoodType("Hay");
+
+                    meal.setFoodAmt(userNum);
+
+                    meal.setFoodAmt(userNum);
+                    animalFeeder.createNewMeal(meal);
+
+                    animalFeeder.addMeal();
+                }
+
+                if (animal.getCageID().contains("D")) {
+                    int labelNum = Integer.parseInt(label4.getText());
+                    int userNum = Integer.parseInt(hayTextField.getText());
+                    int finalNum = userNum + labelNum;
+                    label4.setText(Integer.toString(finalNum));
+
+                    hayTextField.setText("0");
+                    hayTextField.setEnabled(false);
+                    addBtn.setEnabled(false);
+
+                    Meal meal = new Meal();
+                    meal.setFoodType("Hay");
+
+                    meal.setFoodAmt(userNum);
+
+                    meal.setFoodAmt(userNum);
+                    animalFeeder.createNewMeal(meal);
+
+                    animalFeeder.addMeal();
+                }
+            } catch (Exception exception) {
+                System.out.println("Error " + exception.getMessage());
             }
         }
-
-        else if (Integer.parseInt(fruitTextField.getText()) > 0) {
-            this.hayTextField.setEnabled(false);
-            this.grainTextField.setEnabled(false);
-            this.fishTextField.setEnabled(false);
-            this.meatTextField.setEnabled(false);
+        
 
             if (e.getSource() == addBtn) {
                 try {
@@ -580,13 +738,9 @@ public class ZooManager extends JFrame implements ActionListener {
                 }
                 
             }
-        }
         
-        else if (Integer.parseInt(grainTextField.getText()) > 0) {
-            this.hayTextField.setEnabled(false);
-            this.fruitTextField.setEnabled(false);
-            this.fishTextField.setEnabled(false);
-            this.meatTextField.setEnabled(false);
+        
+        
 
             if (e.getSource() == addBtn) {
                 try {
@@ -677,14 +831,7 @@ public class ZooManager extends JFrame implements ActionListener {
                     System.out.println("Error " + exception.getMessage());
                 }
             }
-        }
-
-        else if (Integer.parseInt(fishTextField.getText()) > 0) {
-            this.hayTextField.setEnabled(false);
-            this.grainTextField.setEnabled(false);
-            this.grainTextField.setEnabled(false);
-            this.meatTextField.setEnabled(false);
-
+        
             if (e.getSource() == addBtn) {
                 try {
                     if (animal.getCageID().contains("A")) {
@@ -774,13 +921,6 @@ public class ZooManager extends JFrame implements ActionListener {
                     System.out.println("Error " + exception.getMessage());
                 }
             }
-        }
-
-        else if (Integer.parseInt(meatTextField.getText()) > 0) {
-            this.hayTextField.setEnabled(false);
-            this.grainTextField.setEnabled(false);
-            this.grainTextField.setEnabled(false);
-            this.fishTextField.setEnabled(false);
 
             if (e.getSource() == addBtn) {
                 try {
@@ -869,16 +1009,27 @@ public class ZooManager extends JFrame implements ActionListener {
                     System.out.println("Error " + exception.getMessage());
                 }
             }
+        
+        if (e.getSource() == feedBtn) {
+            try {
+            animalFeeder.simFeeding();
+            }
+            catch (Exception exception) {
+
+            }
         }
 
-        if (nextBtnCount == zoo.getCages().size() - 1) {
-            feedBtn.setEnabled(true);
-        }
+        if (e.getSource() == printFoodListBtn ) {
+            try {
+                animalFeeder.printFeedingList();
+            }
+            catch (Exception exception) {
 
+            }
+        }
     }
 
     public void showAnimal(int position) throws Exception {
-        zoo.readFile();
         if (zoo.getCages().size() > 0) {
             cageID.setText(zoo.getAnimal(position).getCageID());
             name.setText(zoo.getAnimal(position).getName());
@@ -886,7 +1037,6 @@ public class ZooManager extends JFrame implements ActionListener {
             category.setText(zoo.getAnimal(position).getCategory());
             hunger.setText(Integer.toString((zoo.getAnimal(position).getHungerStatus())) + "/5");
             health.setText(Integer.toString((zoo.getAnimal(position).getHealthStatus())) + "/10");
-            // System.out.println("animal cage id: " + zoo.getAnimal(position).getCageID());
         }
     }
 

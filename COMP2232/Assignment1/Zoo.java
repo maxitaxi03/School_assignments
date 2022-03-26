@@ -91,6 +91,7 @@ public class Zoo {
             // use exceptions properly so the program doesn't crash
             throw new NoSuchElementException("There are no animals in the zoo!");
         }
+        
         if (position > cages.size()) {
             throw new IllegalArgumentException();
         }
@@ -165,6 +166,8 @@ public class Zoo {
         }
     }
 
+    
+
     /**
      * This method reads data from animals.txt and populates the cages arraylist
      * @throws Exception
@@ -189,6 +192,13 @@ public class Zoo {
             // set species adds the hyphen, which is not meant to happen
             // fix this
             animal.setSpecies(splitString[2]);
+            
+            if (animal.getSpecies().contains("-")) {
+                animal.setSpecies(animal.getSpecies().replace("-", " "));
+            }
+            
+            else
+                // animal.setSpecies()
 
             animal.setAge(Integer.parseInt(splitString[3]));
             animal.setHungerStatus(Integer.parseInt(splitString[4]));
