@@ -32,6 +32,13 @@ public class ZooManager extends JFrame implements ActionListener {
     JLabel hunger;
     JLabel health;
 
+    JLabel numberOfAnimalsFed;
+    JLabel aliveAnimals;
+    JLabel deadAnimals;
+    JLabel overFedAnimals; 
+    JLabel animalDetails;
+
+
     // these are the labels for the totals panel
     JLabel label;
     JLabel label2;
@@ -80,8 +87,6 @@ public class ZooManager extends JFrame implements ActionListener {
     KeyListener keyListener; 
 
     
-    
-    
 
     /***************GUI OBJECTS END HERE************************/ 
 
@@ -89,10 +94,13 @@ public class ZooManager extends JFrame implements ActionListener {
     Welcome welcomePopup;
     Animal animal;
     AnimalFeeder animalFeeder;
-    Date currentDate;
+   
 
     int animalPosition = 1;
     int nextBtnCount = 0; // is meant to be used to disable the feedBtn, but not working
+    int numberOfAnimalsFedInZoo = 0;
+    int numberOfOverfedAnimals = 0;
+    String animalDescription;
 
     public ZooManager() {
         zoo = new Zoo();
@@ -104,7 +112,7 @@ public class ZooManager extends JFrame implements ActionListener {
         // not sure what that exception class would be, but it's a start
         catch (Exception exception) {}
 
-        currentDate = new Date();
+       
         animalFeeder = new AnimalFeeder(zoo.getCages());
         welcomePopup = new Welcome();
         initFrame();
@@ -177,7 +185,11 @@ public class ZooManager extends JFrame implements ActionListener {
         // mainFrame.add(feedingReportPanel);
         animalPanel();
         foodPanel();
+        feedingReportPanel();
         mainFrame.add(welcomePanel);
+        healingPanel();
+
+       
         // mainFrame.add(medicinePanel);
         // mainFrame.add(healingPanel);
         
@@ -189,16 +201,6 @@ public class ZooManager extends JFrame implements ActionListener {
         
         // Adding stuff to the animalPanel
 
-        // JTextField usernameTextField= new JTextField(); 
-        // usernameTextField.addKeyListener(new KeyAdapter() {
-        //  public void keyReleased(KeyEvent e) { 
-        //      JTextField textField = (JTextField) e.getSource(); 
-        //      String text = textField.getText(); textField.setText(text.toUpperCase()); 
-        //     } 
-        //      public void keyTyped(KeyEvent e) { } 
-        //      public void keyPressed(KeyEvent e) { } 
-        //     });
-        // may have to create a new class for the keylistener to work
         
         try {
             showAnimal(animalPosition);
@@ -380,6 +382,7 @@ public class ZooManager extends JFrame implements ActionListener {
         JLabel zoneCLabel = new JLabel("C");
         JLabel zoneDLabel = new JLabel("D");
 
+        
         label = new JLabel("0");
         label2 = new JLabel("0");
         label3 = new JLabel("0");
@@ -472,7 +475,8 @@ public class ZooManager extends JFrame implements ActionListener {
 
         addBtnPanel.add(addBtn);
         
-        foodPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        container.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        // foodPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         container.add(foodPanel);
         container.add(addBtnPanel);
         container.add(totalsPanel);
@@ -483,22 +487,82 @@ public class ZooManager extends JFrame implements ActionListener {
     }
 
     public void feedingReportPanel() {
-        JPanel mainContainer = new JPanel(new GridLayout(2, 1));
-        JButton printReportBtn = new JButton("Print Report");
+        JPanel mainContainer = new JPanel();
+        JPanel feedingReportPanel = new JPanel();
+        JPanel btnContainer = new JPanel();
 
-        feedingReportPanel = new JPanel();
-        feedingReportPanel.add(new JScrollPane(feedingReportPanel));
+        mainContainer.setLayout(new BoxLayout(mainContainer, BoxLayout.Y_AXIS));
+        feedingReportPanel.setLayout(new BoxLayout(feedingReportPanel, BoxLayout.Y_AXIS));
+        btnContainer.setLayout(new FlowLayout());
+
+        mainContainer.setPreferredSize(new Dimension(300, 200));
+
+        JScrollPane scrollPane = new JScrollPane(feedingReportPanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        // mainContainer.add(scrollPane);
 
         JLabel date = new JLabel();
-        date.setText(currentDate.getDate());
-        
-        // some check to see which animals have been fed 
-        // to then know the total number of animals that have been fed 
-        // seems a bit extreme, so i don't think i will be doing that for 
-        // the time being
-        
-        JLabel numberOfAnimalsFed = new JLabel();
+        String currentDate = zoo.getDate();
+        date.setText(currentDate);
 
+        feedingReportPanel.add(date);
+
+        numberOfAnimalsFed = new JLabel();
+        numberOfAnimalsFed.setText("Animals fed: ");
+        feedingReportPanel.add(numberOfAnimalsFed);
+
+        aliveAnimals = new JLabel();
+        aliveAnimals.setText("OK: ");
+        feedingReportPanel.add(aliveAnimals);
+        
+        deadAnimals = new JLabel();
+        deadAnimals.setText("Deaths: " + Integer.toString(zoo.getNumberOfDeadAnimals()));
+        
+        overFedAnimals = new JLabel("");
+        overFedAnimals.setText(":");
+
+        animalDetails = new JLabel("Hello");
+
+        for (int i = 0; i < animalFeeder.getDeadAnimals().size(); i++) {
+            overFedAnimals.setText("Overfed: ");
+
+            animalDetails = new JLabel();
+            animalDescription = animal.getCageID() + " " + animal.getName() + " " + animal.getSpecies();
+            animalDetails.setText(" " + animalDescription);
+
+            feedingReportPanel.add(overFedAnimals);
+            feedingReportPanel.add(animalDetails);
+
+        }
+
+
+
+        mainContainer.setBorder(BorderFactory.createLineBorder(Color.black));
+        feedingReportPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+
+        scrollPane.setViewportView(mainContainer);
+        mainContainer.add(feedingReportPanel);
+        mainFrame.add(mainContainer);
+    }
+
+    public void healingPanel() {
+        JPanel container = new JPanel();
+        JPanel medicinePanel = new JPanel();
+        JPanel addBtnPanel = new JPanel();
+        JPanel totalsPanel = new JPanel();
+        JPanel btnContainer = new JPanel();
+
+        container.setLayout(new FlowLayout());
+        totalsPanel.setLayout(new GridLayout(4, 4, 10, 10));
+        JLabel label = new JLabel("Hello");
+
+        medicinePanel.add(label);
+        container.add(medicinePanel);
+        container.add(totalsPanel);
+
+        mainFrame.add(container);
     }
     
     public void actionPerformed(ActionEvent e) {
@@ -523,6 +587,7 @@ public class ZooManager extends JFrame implements ActionListener {
         }
 
         else {
+            nextAnimalBtn.setEnabled(false);
             feedBtn.setEnabled(true);
             printFoodListBtn.setEnabled(true);
         }
@@ -553,6 +618,7 @@ public class ZooManager extends JFrame implements ActionListener {
             this.meatTextField.setEnabled(true);
         }
 
+        // for hay
         if (e.getSource() == addBtn) {
             try {
                 if (animal.getCageID().contains("A")) {
@@ -576,7 +642,11 @@ public class ZooManager extends JFrame implements ActionListener {
                     meal.setFoodAmt(userNum);
                     animalFeeder.createNewMeal(meal);
 
-                    animalFeeder.addMeal();
+                    if (userNum > 0) {
+                        animalFeeder.addMeal();
+                        System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                    }
                 }
 
                 if (animal.getCageID().contains("B")) {
@@ -597,7 +667,11 @@ public class ZooManager extends JFrame implements ActionListener {
                     meal.setFoodAmt(userNum);
                     animalFeeder.createNewMeal(meal);
 
-                    animalFeeder.addMeal();
+                    if (userNum > 0) {
+                        animalFeeder.addMeal();
+                        System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                    }
                 }
 
                 if (animal.getCageID().contains("C")) {
@@ -618,7 +692,11 @@ public class ZooManager extends JFrame implements ActionListener {
                     meal.setFoodAmt(userNum);
                     animalFeeder.createNewMeal(meal);
 
-                    animalFeeder.addMeal();
+                    if (userNum > 0) {
+                        animalFeeder.addMeal();
+                        System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                    }
                 }
 
                 if (animal.getCageID().contains("D")) {
@@ -639,13 +717,18 @@ public class ZooManager extends JFrame implements ActionListener {
                     meal.setFoodAmt(userNum);
                     animalFeeder.createNewMeal(meal);
 
-                    animalFeeder.addMeal();
+                    if (userNum > 0) {
+                        animalFeeder.addMeal();
+                        System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                    }
                 }
             } catch (Exception exception) {
                 System.out.println("Error " + exception.getMessage());
             }
         }
         
+        // for fruit
 
             if (e.getSource() == addBtn) {
                 try {
@@ -667,7 +750,11 @@ public class ZooManager extends JFrame implements ActionListener {
                         meal.setFoodAmt(userNum);
                         animalFeeder.createNewMeal(meal);
 
-                        animalFeeder.addMeal();
+                        if (userNum > 0) {
+                            animalFeeder.addMeal();
+                            System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                        }
                     }
 
                     if (animal.getCageID().contains("B")) {
@@ -688,7 +775,11 @@ public class ZooManager extends JFrame implements ActionListener {
                         meal.setFoodAmt(userNum);
                         animalFeeder.createNewMeal(meal);
 
-                        animalFeeder.addMeal();
+                        if (userNum > 0) {
+                            animalFeeder.addMeal();
+                            System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                        }
                     }
 
                     if (animal.getCageID().contains("C")) {
@@ -709,7 +800,11 @@ public class ZooManager extends JFrame implements ActionListener {
                         meal.setFoodAmt(userNum);
                         animalFeeder.createNewMeal(meal);
 
-                        animalFeeder.addMeal();
+                        if (userNum > 0) {
+                            animalFeeder.addMeal();
+                            System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                        }
 
                     }
 
@@ -731,7 +826,11 @@ public class ZooManager extends JFrame implements ActionListener {
                         meal.setFoodAmt(userNum);
                         animalFeeder.createNewMeal(meal);
 
-                        animalFeeder.addMeal();
+                        if (userNum > 0) {
+                            animalFeeder.addMeal();
+                            System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                        }
                     }
                 } catch (Exception exception) {
                     System.out.println("Error " + exception.getMessage());
@@ -739,9 +838,6 @@ public class ZooManager extends JFrame implements ActionListener {
                 
             }
         
-        
-        
-
             if (e.getSource() == addBtn) {
                 try {
                     if (animal.getCageID().contains("A")) {
@@ -762,7 +858,11 @@ public class ZooManager extends JFrame implements ActionListener {
                         meal.setFoodAmt(userNum);
                         animalFeeder.createNewMeal(meal);
 
-                        animalFeeder.addMeal();
+                        if (userNum > 0) {
+                            animalFeeder.addMeal();
+                            System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                        }
                     }
 
                     if (animal.getCageID().contains("B")) {
@@ -783,11 +883,15 @@ public class ZooManager extends JFrame implements ActionListener {
                         meal.setFoodAmt(userNum);
                         animalFeeder.createNewMeal(meal);
 
-                        animalFeeder.addMeal();
+                        if (userNum > 0) {
+                            animalFeeder.addMeal();
+                            System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                        }
                     }
 
                     if (animal.getCageID().contains("C")) {
-                        int labelNum = Integer.parseInt(label10.getText());
+                        int labelNum = Integer.parseInt(label11.getText());
                         int userNum = Integer.parseInt(grainTextField.getText());
                         int finalNum = userNum + labelNum;
                         label11.setText(Integer.toString(finalNum));
@@ -804,11 +908,15 @@ public class ZooManager extends JFrame implements ActionListener {
                         meal.setFoodAmt(userNum);
                         animalFeeder.createNewMeal(meal);
 
-                        animalFeeder.addMeal();
+                        if (userNum > 0) {
+                            animalFeeder.addMeal();
+                            System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                        }
                     }
 
                     if (animal.getCageID().contains("D")) {
-                        int labelNum = Integer.parseInt(label11.getText());
+                        int labelNum = Integer.parseInt(label12.getText());
                         int userNum = Integer.parseInt(grainTextField.getText());
                         int finalNum = userNum + labelNum;
                         label12.setText(Integer.toString(finalNum));
@@ -825,7 +933,11 @@ public class ZooManager extends JFrame implements ActionListener {
                         meal.setFoodAmt(userNum);
                         animalFeeder.createNewMeal(meal);
 
-                        animalFeeder.addMeal();
+                        if (userNum > 0) {
+                            animalFeeder.addMeal();
+                            System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                        }
                     }
                 } catch (Exception exception) {
                     System.out.println("Error " + exception.getMessage());
@@ -852,7 +964,11 @@ public class ZooManager extends JFrame implements ActionListener {
                         meal.setFoodAmt(userNum);
                         animalFeeder.createNewMeal(meal);
 
-                        animalFeeder.addMeal();
+                        if (userNum > 0) {
+                            animalFeeder.addMeal();
+                            System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                        }
                     }
 
                     if (animal.getCageID().contains("B")) {
@@ -873,7 +989,11 @@ public class ZooManager extends JFrame implements ActionListener {
                         meal.setFoodAmt(userNum);
                         animalFeeder.createNewMeal(meal);
 
-                        animalFeeder.addMeal();
+                        if (userNum > 0) {
+                            animalFeeder.addMeal();
+                            System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                        }
                     }
 
                     if (animal.getCageID().contains("C")) {
@@ -894,7 +1014,11 @@ public class ZooManager extends JFrame implements ActionListener {
                         meal.setFoodAmt(userNum);
                         animalFeeder.createNewMeal(meal);
 
-                        animalFeeder.addMeal();
+                        if (userNum > 0) {
+                            animalFeeder.addMeal();
+                            System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                        }
                     }
 
                     if (animal.getCageID().contains("D")) {
@@ -915,7 +1039,11 @@ public class ZooManager extends JFrame implements ActionListener {
                         meal.setFoodAmt(userNum);
                         animalFeeder.createNewMeal(meal);
 
-                        animalFeeder.addMeal();
+                        if (userNum > 0) {
+                            animalFeeder.addMeal();
+                            System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                        }
                     }
                 } catch (Exception exception) {
                     System.out.println("Error " + exception.getMessage());
@@ -942,7 +1070,12 @@ public class ZooManager extends JFrame implements ActionListener {
                         meal.setFoodAmt(userNum);
                         animalFeeder.createNewMeal(meal);
 
-                        animalFeeder.addMeal();
+
+                        if (userNum > 0) {
+                            animalFeeder.addMeal();
+                            System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                        }
                     }
 
                     if (animal.getCageID().contains("B")) {
@@ -963,7 +1096,12 @@ public class ZooManager extends JFrame implements ActionListener {
                         meal.setFoodAmt(userNum);
                         animalFeeder.createNewMeal(meal);
 
-                        animalFeeder.addMeal();
+                        if (userNum > 0) {
+                            animalFeeder.addMeal();
+                            System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                        }
+                        
                     }
 
                     if (animal.getCageID().contains("C")) {
@@ -984,7 +1122,11 @@ public class ZooManager extends JFrame implements ActionListener {
                         meal.setFoodAmt(userNum);
                         animalFeeder.createNewMeal(meal);
 
-                        animalFeeder.addMeal();
+                        if (userNum > 0) {
+                            animalFeeder.addMeal();
+                            System.out.println("feeding list size before: "+animalFeeder.feedingList.size());
+
+                        }
                     }
 
                     if (animal.getCageID().contains("D")) {
@@ -1012,7 +1154,18 @@ public class ZooManager extends JFrame implements ActionListener {
         
         if (e.getSource() == feedBtn) {
             try {
-            animalFeeder.simFeeding();
+                animalFeeder.simFeeding();
+                
+                // int numberOfOverfedAnimals = animalFeeder.getOverfedAnimalsCount();
+                numberOfAnimalsFed.setText("Animals Fed: " + zoo.getCages().size());
+                int okayAnimals = zoo.getCages().size() - animalFeeder.getOverfedAnimalsCount();
+                aliveAnimals.setText("OK: " + okayAnimals);
+                
+                
+                
+                feedingReportPanel();
+                feedBtn.setEnabled(false);
+
             }
             catch (Exception exception) {
 

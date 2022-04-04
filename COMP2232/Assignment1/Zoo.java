@@ -8,7 +8,8 @@ import java.util.NoSuchElementException;
 import java.io.File;
 import java.lang.IllegalArgumentException;
 import java.util.Scanner;
-import java.text.*; // is used to separate the species with hyphens
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class Zoo {
@@ -210,4 +211,31 @@ public class Zoo {
         }
         file.close();
     }
+
+    public String getDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM-yyyy");
+        String date = sdf.format(new Date());
+        return date;
+    }
+
+    public int getNumberOfDeadAnimals() {
+        int count = 0;
+        for (Animal animal : cages) {
+            if (animal.aliveStatus() == false) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int getNumberOfAliveAnimals() {
+        int count = 0;
+        for (Animal animal : cages) {
+            if (animal.aliveStatus()) {
+                count++;
+            }
+        }
+        return count;
+    }
 } // Zoo
+

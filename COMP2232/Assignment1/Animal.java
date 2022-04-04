@@ -1,6 +1,7 @@
 /**
  * @author      Maximus Boxill
  * @author      400008300
+ * @author      Asha Cumberbatch
  */
 import java.lang.IllegalArgumentException;
 import java.util.Random;
@@ -94,7 +95,6 @@ public class Animal {
     public String getCategory() {
         return category;
     }
-    
 
     /**
      * Registers the specied entered to the animal
@@ -168,11 +168,11 @@ public class Animal {
      * @param food determines how much food the animal eats
      */
     public void eatFood(int food) {
-        if (food <= MIN_HUNGER_STATUS) {
-            throw new IllegalArgumentException("You can't overfeed the animal or give the animal nothing to eat.");
-        }
-        this.hungerStatus += food;
-             
+        this.hungerStatus += food;    
+    }
+
+    public int getMAX_HUNGER_STATUS() {
+        return MAX_HUNGER_STATUS;
     }
     /**
      * Allows the animal to take a set amount of medicine
